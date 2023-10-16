@@ -1,15 +1,21 @@
-# HobiHub
+# HobiHub: Satu Aplikasi untuk Semua Hobi
 
 A Flutter project mobile application designed for a community of enthusiasts with various interests
 
+## Technologies Used
+- Flutter SDK
+- Dart programming language
+- Visual Studio Code, Android Studio
+
 ## Getting Started
+To run the Login Page and Registration App UI project locally, follow these steps:
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Clone the repository: git clone https://github.com/josuastg/HobiHub.git
+- Open the project in your preferred IDE or code editor.
+- Ensure you have Flutter SDK installed.
+- Run flutter pub get to fetch the project dependencies.
+- Connect a device or start an emulator/simulator.
+= Run flutter run to launch the application.
 
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
