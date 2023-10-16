@@ -1,6 +1,6 @@
-# hobihub
+# HobiHub
 
-A new Flutter project.
+A Flutter project mobile application designed for a community of enthusiasts with various interests
 
 ## Getting Started
 
