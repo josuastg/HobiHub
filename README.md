@@ -8,7 +8,7 @@ A Flutter project mobile application designed for a community of enthusiasts wit
 - Visual Studio Code, Android Studio
 
 ## Getting Started
-To run the Login Page and Registration App UI project locally, follow these steps:
+To run the HobiHub project locally, follow these steps:
 
 Clone the repository: git clone https://github.com/josuastg/HobiHub.git
 - Open the project in your preferred IDE or code editor.
