@@ -1,4 +1,4 @@
-# HobiHub: Satu Aplikasi untuk Semua Hobi Adalah Omong Kosong
+# HobiHub: Satu Aplikasi untuk Semua Hobi
 
 A Flutter project mobile application designed for a community of enthusiasts with various interests
 
