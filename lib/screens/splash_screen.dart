@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hobihub/screens/get_started_screen.dart';
-import 'package:hobihub/screens/home_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
