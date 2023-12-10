@@ -14,6 +14,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Register Page"),
+      ),
       body: SafeArea(
         top: false,
         child: Column(
@@ -53,6 +56,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SvgPicture.asset(
                     "assets/images/Vector.svg",
                     width: 88,
+                  ),
+                  Column(
+                    children: [
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder()
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobihub/screens/get_started_screen.dart';
 import 'package:hobihub/screens/home_screen.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -15,7 +16,7 @@ class SplashScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
+                MaterialPageRoute(builder: (context) => const GetStartedScreen()),
               );
             },
             child: const Text('Go To Home Screen')),
