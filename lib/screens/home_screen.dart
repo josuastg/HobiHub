@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobihub/screens/login_screen.dart';
+import 'package:hobihub/screens/my_profile_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,9 +13,9 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
         child:  ElevatedButton(onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const MyProfileScreen()));
         }, 
-        child: const Text("Go to Login Screen"),
+        child: const Text("Go to My Profile Screen"),
         ),
       ),
     );
