@@ -5,8 +5,7 @@ void main() {
   runApp(const MyApp());
 }
 
-var kColorScheme =
-    ColorScheme.fromSeed(seedColor: const Color(0xffB55DBE));
+var kColorScheme = ColorScheme.fromSeed(seedColor: const Color(0xffB55DBE));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -17,9 +16,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('HobiHub App'),
-        ),
         body: const SplashScreen(),
       ),
     );
