@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
-      home: Scaffold(
-        body: const SplashScreen(),
+      home: const Scaffold(
+        body: SplashScreen(),
       ),
     );
   }
