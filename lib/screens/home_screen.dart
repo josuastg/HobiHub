@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hobihub/screens/login_screen.dart';
 import 'package:hobihub/screens/my_profile_screen.dart';
 
 class HomePage extends StatelessWidget {
