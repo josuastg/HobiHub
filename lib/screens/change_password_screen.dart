@@ -198,11 +198,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                       onChanged: (value) => setValidMatchPassword(),
                     ),
                     const SizedBox(
-                      height: 59,
+                      height: 50,
                     ),
                     SizedBox(
                       width: double.infinity,
-                      height: 54,
+                      height: 48,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor:
@@ -230,7 +230,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             "Change Password",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 22,
+                              fontSize: 18,
                               fontWeight: FontWeight.w700,
                             ),
                           )),
