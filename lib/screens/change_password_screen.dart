@@ -27,8 +27,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         _passwordError ||
         _newPasswordController.text.isEmpty ||
         _confirmPasswordController.text.isEmpty ||
-        _newPasswordController.text != _confirmPasswordController.text ||
-        _currentPasswordController.text == _newPasswordController.text;
+        _newPasswordController.text != _confirmPasswordController.text;
   }
 
   final _formKey = GlobalKey<FormState>();
