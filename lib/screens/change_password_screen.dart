@@ -19,7 +19,8 @@ class _ChangePasswordState extends State<ChangePassword> {
   bool _passwordMatch = true;
   bool _passwordError = false;
   String _errorMessage = "";
-  bool _passwordVisible = false;
+  bool _currentpasswordVisible = false;
+  bool _newpasswordVisible = false;
   bool _confirmPasswordVisible = false;
 
   bool _isButtonDisabled() {
@@ -104,17 +105,18 @@ class _ChangePasswordState extends State<ChangePassword> {
                         suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
-                                _passwordVisible = !_passwordVisible;
+                                _currentpasswordVisible =
+                                    !_currentpasswordVisible;
                               });
                             },
                             icon: Icon(
-                              _passwordVisible
+                              _currentpasswordVisible
                                   ? Icons.visibility_off
                                   : Icons.visibility,
                               color: const Color.fromARGB(255, 181, 93, 190),
                             )),
                       ),
-                      obscureText: _passwordVisible,
+                      obscureText: _currentpasswordVisible,
                       onChanged: (value) => setInvalidPassword(value),
                     ),
                     const SizedBox(
@@ -145,17 +147,17 @@ class _ChangePasswordState extends State<ChangePassword> {
                         suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
-                                _passwordVisible = !_passwordVisible;
+                                _newpasswordVisible = !_newpasswordVisible;
                               });
                             },
                             icon: Icon(
-                              _passwordVisible
+                              _newpasswordVisible
                                   ? Icons.visibility_off
                                   : Icons.visibility,
                               color: const Color.fromARGB(255, 181, 93, 190),
                             )),
                       ),
-                      obscureText: _passwordVisible,
+                      obscureText: _newpasswordVisible,
                       onChanged: (value) => setInvalidPassword(value),
                     ),
                     const SizedBox(
