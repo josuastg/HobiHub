@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 181, 93, 190),
         title: const Text(
-          'Home Screen',
+          'All Group Chat',
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,
