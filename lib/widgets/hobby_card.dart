@@ -32,10 +32,10 @@ class HobbyCard extends StatelessWidget {
               BoxShadow(
                 color:Colors.white,
                 offset: Offset(
-                  1.0, 
+                  3.0, 
                   0.5
                 ),
-                blurRadius: 9.0,
+                blurRadius: 15.0,
                 spreadRadius: 3.0
               ),
             ]

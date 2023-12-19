@@ -23,6 +23,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  List<Hobby> hobbies = [
+    Hobby(imageUrl: "assets/images/Sports.png", title: "Sports"),
+    Hobby(imageUrl: "assets/images/Music.png", title: "Music"),
+    Hobby(imageUrl: "assets/images/Travel.png", title: "Traveling"),
+    Hobby(imageUrl: "assets/images/Games.png", title: "Games"),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,66 +46,19 @@ class _HomePageState extends State<HomePage> {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       drawer: const Drawer(),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
+      body: Center(
+        child: ListView.builder(
+        itemCount: hobbies.length,
+        itemBuilder: (context, index) {
+          return Column(
             children: [
               const SizedBox(
                 height: 20,
               ),
-              HobbyCard(hobby: 
-              Hobby(
-                imageUrl: "assets/images/Sports.png",
-                title: "Sports",
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              HobbyCard(hobby: 
-              Hobby(
-                imageUrl: "assets/images/Music.png", 
-                title: "Music"
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              HobbyCard(hobby: 
-              Hobby(
-                imageUrl: "assets/images/Travel.png", 
-                title: "Traveling"
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              HobbyCard(hobby: 
-              Hobby(
-                imageUrl: "assets/images/Games.png", 
-                title:"Games"
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              // Center(
-              //   child: ElevatedButton(
-              //     onPressed: () {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => const MyProfileScreen()));
-              //     },
-              //     child: const Text("Go to My Profile Screen"),
-              //   ),
-              // ),
-              // ElevatedButton(
-              //   onPressed: _openBottomSheetMenu,
-              //   child: const Text("Show Bottom Sheet"),
-              // ),
+              HobbyCard(hobby: hobbies[index]),
             ],
-          ),
+          );
+        },
         ),
       ),
     );
