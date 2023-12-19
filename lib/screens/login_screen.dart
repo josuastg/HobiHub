@@ -2,27 +2,230 @@ import 'package:flutter/material.dart';
 import 'package:hobihub/screens/home_screen.dart';
 import 'package:hobihub/screens/register_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+TextStyle purpleTextStyle = const TextStyle(
+  color: Colors.purple,
+);
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  String? emailError;
+  String? passwordError;
+  bool isPasswordVisible = false;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void signIn() {
+    setState(() {
+      if (emailController.text.isEmpty) {
+        emailError = 'Email must be filled with characters!';
+      } else {
+        emailError = null;
+      }
+
+      if (passwordController.text.isEmpty) {
+        passwordError = 'Password must be filled with characters!';
+      } else {
+        passwordError = null;
+      }
+    });
+
+    if (emailError == null && passwordError == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Logged in successfully!'),
+        ),
+      );
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login Screen'),
-      ),
-      body: Column(
+      body: Stack(
         children: [
-          Center(
-            child: ElevatedButton(onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
-            }, 
-            child: const Text("Go to Register Screen")),
+          Positioned(
+            left: 25,
+            top: 500,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width - 50,
+              child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextField(
+                        controller: emailController,
+                        style: purpleTextStyle.copyWith(fontSize: 12),
+                        decoration: InputDecoration(
+                          labelText: 'Enter Your Email',
+                          errorText: emailError,
+                          labelStyle: purpleTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.purple,
+                              width: 3,
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.purple,
+                              width: 3,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: passwordController,
+                        style: purpleTextStyle.copyWith(fontSize: 12),
+                        decoration: InputDecoration(
+                          labelText: 'Enter Password',
+                          errorText: passwordError,
+                          labelStyle: purpleTextStyle.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.purple,
+                              width: 3,
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.purple,
+                              width: 3,
+                            ),
+                          ),
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isPasswordVisible = !isPasswordVisible;
+                              });
+                            },
+                            child: Icon(
+                              isPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.purple,
+                            ),
+                          ),
+                        ),
+                        obscureText: !isPasswordVisible,
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  )),
+            ),
           ),
-          ElevatedButton(onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-            }, 
-            child: const Text("Go to Home Screen")),
+          Positioned(
+            left: 130,
+            top: 185,
+            child: Text(
+              'Welcome Back!',
+              style: purpleTextStyle.copyWith(fontSize: 19),
+            ),
+          ),
+          Positioned(
+            left: 60,
+            top: 200,
+            child: Image.asset(
+              'assets/images/login_image.png',
+              width: 285,
+              height: 285,
+            ),
+          ),
+          Positioned(
+            left: -110,
+            top: -100,
+            child: Image.asset(
+              'assets/images/shape_login_image.png',
+              width: 290,
+              height: 268,
+            ),
+          ),
+          Positioned(
+            left: 30,
+            top: 705,
+            child: ElevatedButton(
+              onPressed: signIn,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+              ),
+              child: Container(
+                width: 310,
+                height: 55,
+                alignment: Alignment.center,
+                child: const Text(
+                  'Sign In',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 100,
+            top: 750,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Don't have any account? ",
+                  style: purpleTextStyle.copyWith(
+                    color: Colors.purple,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegisterScreen()),
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+                    padding: EdgeInsets.zero,
+                  ),
+                  child: Text(
+                    'Sign Up?',
+                    style: purpleTextStyle.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
