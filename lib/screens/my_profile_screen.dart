@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:hobihub/screens/change_password_screen.dart';
 
 class MyProfileScreen extends StatelessWidget {
-  const MyProfileScreen({super.key});
+  const MyProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {},
+            icon: IconButton(
+                icon: const Icon(Icons.menu),
+                color: Colors.white,
+                iconSize: 40,
+                padding: EdgeInsets.only(top: 1),
+                onPressed: () {}),
+          ),
           title: const Text(
             'Profile',
             style: TextStyle(
@@ -69,7 +79,15 @@ class MyProfileScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ChangePassword();
+                        },
+                      ),
+                    );
+                  },
                   child: const Text('Change Password',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
