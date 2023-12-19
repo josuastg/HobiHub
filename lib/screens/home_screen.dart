@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hobihub/models/hobby.dart';
-import 'package:hobihub/screens/my_profile_screen.dart';
 import 'package:hobihub/widgets/bottom_sheet_menu.dart';
 import 'package:hobihub/widgets/hobby_card.dart';
 
@@ -34,6 +33,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(onPressed: () {}, 
+        icon: IconButton(
+          icon: const Icon(Icons.menu),
+          color: Colors.white,
+          iconSize: 30,
+          padding: const EdgeInsets.only(top: 1),
+          onPressed: _openBottomSheetMenu,
+          )),
         backgroundColor: const Color.fromARGB(255, 181, 93, 190),
         title: const Text(
           'All Group Chat',
@@ -45,7 +52,6 @@ class _HomePageState extends State<HomePage> {
         ),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      drawer: const Drawer(),
       body: Center(
         child: ListView.builder(
         itemCount: hobbies.length,
