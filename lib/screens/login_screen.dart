@@ -10,7 +10,6 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 
@@ -60,15 +59,43 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            left: 25,
-            top: 500,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width - 50,
-              child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(horizontal: 0),
+          child: Stack(
+            children: [
+              Positioned(
+                left: 130,
+                top: 185,
+                child: Text(
+                  'Welcome Back!',
+                  style: purpleTextStyle.copyWith(fontSize: 19),
+                ),
+              ),
+              Positioned(
+                left: 60,
+                top: 200,
+                child: Image.asset(
+                  'assets/images/login_image.png',
+                  width: 285,
+                  height: 285,
+                ),
+              ),
+              Positioned(
+                left: -110,
+                top: -100,
+                child: Image.asset(
+                  'assets/images/shape_login_image.png',
+                  width: 290,
+                  height: 268,
+                ),
+              ),
+              Positioned(
+                left: 25,
+                top: 500,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width - 50,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -137,96 +164,72 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 20),
                     ],
-                  )),
-            ),
-          ),
-          Positioned(
-            left: 130,
-            top: 185,
-            child: Text(
-              'Welcome Back!',
-              style: purpleTextStyle.copyWith(fontSize: 19),
-            ),
-          ),
-          Positioned(
-            left: 60,
-            top: 200,
-            child: Image.asset(
-              'assets/images/login_image.png',
-              width: 285,
-              height: 285,
-            ),
-          ),
-          Positioned(
-            left: -110,
-            top: -100,
-            child: Image.asset(
-              'assets/images/shape_login_image.png',
-              width: 290,
-              height: 268,
-            ),
-          ),
-          Positioned(
-            left: 30,
-            top: 705,
-            child: ElevatedButton(
-              onPressed: signIn,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-              ),
-              child: Container(
-                width: 310,
-                height: 55,
-                alignment: Alignment.center,
-                child: const Text(
-                  'Sign In',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
                   ),
                 ),
               ),
-            ),
-          ),
-          Positioned(
-            left: 100,
-            top: 750,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Don't have any account? ",
-                  style: purpleTextStyle.copyWith(
-                    color: Colors.purple,
+              Positioned(
+                left: 30,
+                top: 705,
+                child: ElevatedButton(
+                  onPressed: signIn,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
                   ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterScreen()),
-                    );
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(0, 255, 255, 255),
-                    padding: EdgeInsets.zero,
-                  ),
-                  child: Text(
-                    'Sign Up?',
-                    style: purpleTextStyle.copyWith(
-                      fontWeight: FontWeight.bold,
+                  child: Container(
+                    width: 310,
+                    height: 55,
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Sign In',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+              Positioned(
+                left: 100,
+                top: 750,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have any account? ",
+                      style: purpleTextStyle.copyWith(
+                        color: Colors.purple,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegisterScreen()),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+                        padding: EdgeInsets.zero,
+                      ),
+                      child: Text(
+                        'Sign Up?',
+                        style: purpleTextStyle.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
