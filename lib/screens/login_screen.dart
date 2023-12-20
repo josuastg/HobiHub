@@ -21,6 +21,16 @@ class _LoginScreenState extends State<LoginScreen> {
   String? passwordError;
   bool isPasswordVisible = false;
 
+  bool isEmailValid = true;
+  bool isPasswordValid = true;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController.addListener(validateEmail);
+    passwordController.addListener(validatePassword);
+  }
+
   @override
   void dispose() {
     emailController.dispose();
@@ -28,24 +38,32 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  final _formKey = GlobalKey<FormState>();
-
-  void signIn() {
+  void validateEmail() {
     setState(() {
       if (emailController.text.isEmpty) {
-        emailError = 'Email must be filled with characters!';
+        isEmailValid = true;
       } else {
-        emailError = null;
-      }
-
-      if (passwordController.text.isEmpty) {
-        passwordError = 'Password must be filled with characters!';
-      } else {
-        passwordError = null;
+        isEmailValid = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+            .hasMatch(emailController.text);
       }
     });
+  }
 
-    if (emailError == null && passwordError == null) {
+  void validatePassword() {
+    setState(() {
+      if (passwordController.text.isEmpty) {
+        isPasswordValid = true;
+      } else {
+        isPasswordValid = passwordController.text.length >= 8;
+      }
+    });
+  }
+
+  void signIn() {
+    validateEmail();
+    validatePassword();
+
+    if (isEmailValid && isPasswordValid) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Logged in successfully!'),
@@ -61,6 +79,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isButtonEnabled = emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        isEmailValid &&
+        isPasswordValid;
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 10),
@@ -97,18 +120,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 56,
                       ),
                       Form(
-                        key: _formKey,
                         child: Column(
                           children: [
                             TextFormField(
                               controller: emailController,
-                              // style: purpleTextStyle.copyWith(fontSize: 12),
+                              onChanged: (value) {
+                                validateEmail();
+                              },
                               decoration: InputDecoration(
                                 contentPadding:
                                     const EdgeInsets.symmetric(vertical: 15),
                                 border: const UnderlineInputBorder(),
                                 labelText: 'Enter Your Email',
-                                errorText: emailError,
+                                errorText: isEmailValid
+                                    ? null
+                                    : 'Email you entered is incorrect!',
                                 labelStyle: const TextStyle(
                                     color: Color.fromARGB(
                                   255,
@@ -135,11 +161,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             TextFormField(
                               controller: passwordController,
+                              onChanged: (value) {
+                                validatePassword();
+                              },
                               decoration: InputDecoration(
                                 contentPadding:
                                     const EdgeInsets.symmetric(vertical: 15),
                                 labelText: 'Enter Password',
-                                errorText: passwordError,
+                                errorText: isPasswordValid
+                                    ? null
+                                    : 'Password must be at least 8 characters!',
                                 labelStyle: const TextStyle(
                                     color: Color.fromARGB(
                                   255,
@@ -183,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: double.infinity,
                               height: 54,
                               child: ElevatedButton(
-                                onPressed: signIn,
+                                onPressed: isButtonEnabled ? signIn : null,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
                                       const Color.fromARGB(255, 181, 93, 190),
