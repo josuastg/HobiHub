@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobihub/screens/home_screen.dart';
 import 'package:hobihub/screens/register_screen.dart';
 
 TextStyle purpleTextStyle = const TextStyle(
-  color: Colors.purple,
+  color: Color.fromARGB(255, 181, 93, 190),
 );
 
 class LoginScreen extends StatefulWidget {
@@ -26,6 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
     super.dispose();
   }
+
+  final _formKey = GlobalKey<FormState>();
 
   void signIn() {
     setState(() {
@@ -60,171 +63,182 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.symmetric(horizontal: 0),
-          child: Stack(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Positioned(
-                left: 130,
-                top: 185,
-                child: Text(
-                  'Welcome Back!',
-                  style: purpleTextStyle.copyWith(fontSize: 19),
-                ),
+              SvgPicture.asset("assets/images/Shape.svg"),
+              const SizedBox(
+                height: 1,
               ),
-              Positioned(
-                left: 60,
-                top: 200,
-                child: Image.asset(
-                  'assets/images/login_image.png',
-                  width: 285,
-                  height: 285,
-                ),
-              ),
-              Positioned(
-                left: -110,
-                top: -100,
-                child: Image.asset(
-                  'assets/images/shape_login_image.png',
-                  width: 290,
-                  height: 268,
-                ),
-              ),
-              Positioned(
-                left: 25,
-                top: 500,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width - 50,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Center(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextField(
-                        controller: emailController,
-                        style: purpleTextStyle.copyWith(fontSize: 12),
-                        decoration: InputDecoration(
-                          labelText: 'Enter Your Email',
-                          errorText: emailError,
-                          labelStyle: purpleTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          enabledBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.purple,
-                              width: 3,
-                            ),
-                          ),
-                          focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.purple,
-                              width: 3,
-                            ),
-                          ),
+                      const Text(
+                        'Welcome Back!',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 181, 93, 190),
+                          fontSize: 19,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: passwordController,
-                        style: purpleTextStyle.copyWith(fontSize: 12),
-                        decoration: InputDecoration(
-                          labelText: 'Enter Password',
-                          errorText: passwordError,
-                          labelStyle: purpleTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          enabledBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.purple,
-                              width: 3,
-                            ),
-                          ),
-                          focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.purple,
-                              width: 3,
-                            ),
-                          ),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isPasswordVisible = !isPasswordVisible;
-                              });
-                            },
-                            child: Icon(
-                              isPasswordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Colors.purple,
-                            ),
-                          ),
-                        ),
-                        obscureText: !isPasswordVisible,
+                      const SizedBox(
+                        height: 36,
                       ),
-                      const SizedBox(height: 20),
+                      Center(
+                        child:
+                            SvgPicture.asset('assets/images/login_image.svg'),
+                      ),
+                      const SizedBox(
+                        height: 56,
+                      ),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: emailController,
+                              // style: purpleTextStyle.copyWith(fontSize: 12),
+                              decoration: InputDecoration(
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                border: const UnderlineInputBorder(),
+                                labelText: 'Enter Your Email',
+                                errorText: emailError,
+                                labelStyle: const TextStyle(
+                                    color: Color.fromARGB(
+                                  255,
+                                  181,
+                                  93,
+                                  190,
+                                )),
+                                enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 181, 93, 190),
+                                    width: 3,
+                                  ),
+                                ),
+                                focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 181, 93, 190),
+                                    width: 3,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 38,
+                            ),
+                            TextFormField(
+                              controller: passwordController,
+                              decoration: InputDecoration(
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                labelText: 'Enter Password',
+                                errorText: passwordError,
+                                labelStyle: const TextStyle(
+                                    color: Color.fromARGB(
+                                  255,
+                                  181,
+                                  93,
+                                  190,
+                                )),
+                                enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 181, 93, 190),
+                                    width: 3,
+                                  ),
+                                ),
+                                focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 181, 93, 190),
+                                    width: 3,
+                                  ),
+                                ),
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      isPasswordVisible = !isPasswordVisible;
+                                    });
+                                  },
+                                  child: Icon(
+                                    isPasswordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color:
+                                        const Color.fromARGB(255, 181, 93, 190),
+                                  ),
+                                ),
+                              ),
+                              obscureText: !isPasswordVisible,
+                            ),
+                            const SizedBox(
+                              height: 65,
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 54,
+                              child: ElevatedButton(
+                                onPressed: signIn,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 181, 93, 190),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Sign In',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Don't have any account? ",
+                                  style: purpleTextStyle.copyWith(
+                                    color:
+                                        const Color.fromARGB(255, 181, 93, 190),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RegisterScreen()),
+                                    );
+                                  },
+                                  style: TextButton.styleFrom(
+                                    backgroundColor:
+                                        const Color.fromARGB(0, 255, 255, 255),
+                                    padding: EdgeInsets.zero,
+                                  ),
+                                  child: Text(
+                                    'Sign Up',
+                                    style: purpleTextStyle.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                ),
-              ),
-              Positioned(
-                left: 30,
-                top: 705,
-                child: ElevatedButton(
-                  onPressed: signIn,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                  child: Container(
-                    width: 310,
-                    height: 55,
-                    alignment: Alignment.center,
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 100,
-                top: 750,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don't have any account? ",
-                      style: purpleTextStyle.copyWith(
-                        color: Colors.purple,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterScreen()),
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(0, 255, 255, 255),
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Text(
-                        'Sign Up?',
-                        style: purpleTextStyle.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ],
