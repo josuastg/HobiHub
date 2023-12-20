@@ -14,7 +14,7 @@ class MyProfileScreen extends StatelessWidget {
                 icon: const Icon(Icons.menu),
                 color: Colors.white,
                 iconSize: 40,
-                padding: EdgeInsets.only(top: 1),
+                padding: const EdgeInsets.only(top: 1),
                 onPressed: () {}),
           ),
           title: const Text(
@@ -22,29 +22,29 @@ class MyProfileScreen extends StatelessWidget {
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w700, fontSize: 22),
           ),
-          backgroundColor: Color.fromARGB(255, 181, 93, 190)),
+          backgroundColor: const Color.fromARGB(255, 181, 93, 190)),
       body: SafeArea(
         child: Center(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 180,
               ),
-              Text(
+              const Text(
                 'Name',
                 style: TextStyle(
                     fontWeight: FontWeight.w700,
                     color: Color.fromARGB(255, 181, 93, 190),
                     fontSize: 16),
               ),
-              Text(
+              const Text(
                 'Email@gmail.com',
                 style: TextStyle(
                     fontWeight: FontWeight.w700,
                     color: Color.fromARGB(255, 181, 93, 190),
                     fontSize: 16),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Container(
@@ -53,7 +53,7 @@ class MyProfileScreen extends StatelessWidget {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Color.fromARGB(255, 181, 93, 190),
+                    backgroundColor: const Color.fromARGB(255, 181, 93, 190),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -65,7 +65,7 @@ class MyProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Container(
@@ -74,7 +74,7 @@ class MyProfileScreen extends StatelessWidget {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Color.fromARGB(255, 181, 93, 190),
+                    backgroundColor: const Color.fromARGB(255, 181, 93, 190),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -83,7 +83,7 @@ class MyProfileScreen extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {
-                          return ChangePassword();
+                          return const ChangePassword();
                         },
                       ),
                     );
