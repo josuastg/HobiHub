@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "336002918720",
+    "project_id": "hobihub",
+    "storage_bucket": "hobihub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336002918720:android:9d95084d807ee1dc14f2a5",
+        "android_client_info": {
+          "package_name": "com.example.hobihub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxu8M5lexwXCKvVv36Sx7OaHRa40-NkFY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
