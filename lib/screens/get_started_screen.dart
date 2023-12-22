@@ -50,7 +50,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     const SizedBox(height: 16),
                     const Text(
                       "Discover hobby communities that\n"
-                      "match,learn, and grow with experts in \n"
+                      "match,learn, and grow with experts in\n"
                       "their field. Start your hobby journey now!",
                       style: TextStyle(
                         fontSize: 14,
@@ -86,6 +86,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                           "Get Started",
                           style: TextStyle(
                             color: Colors.white,
+                            fontFamily: 'Poppins',
                             fontSize: 22,
                             fontWeight: FontWeight.w700,
                           ),
