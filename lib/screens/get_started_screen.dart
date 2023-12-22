@@ -49,24 +49,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     ),
                     const SizedBox(height: 16),
                     const Text(
-                      "Discover hobby communities that",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color.fromARGB(255, 181, 93, 190),
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const Text(
-                      "match, learn, and grow with experts in",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color.fromARGB(255, 181, 93, 190),
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const Text(
+                      "Discover hobby communities that\n"
+                      "match,learn, and grow with experts in \n"
                       "their field. Start your hobby journey now!",
                       style: TextStyle(
                         fontSize: 14,
@@ -74,6 +58,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(
                       height: 69,
