@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hobihub/screens/login_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class GetStartedScreen extends StatefulWidget {
+class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
 
-  @override
-  State<GetStartedScreen> createState() => _GetStartedScreenState();
-}
-
-class _GetStartedScreenState extends State<GetStartedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,19 +38,17 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                       style: TextStyle(
                         fontSize: 16,
                         color: Color.fromARGB(255, 181, 93, 190),
-                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 16),
                     const Text(
                       "Discover hobby communities that\n"
-                      "match,learn, and grow with experts in\n"
+                      "match, learn, and grow with experts in\n"
                       "their field. Start your hobby journey now!",
                       style: TextStyle(
                         fontSize: 14,
                         color: Color.fromARGB(255, 181, 93, 190),
-                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       textAlign: TextAlign.center,
@@ -85,9 +78,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                         child: const Text(
                           "Get Started",
                           style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Poppins',
                             fontSize: 22,
+                            color: Colors.white,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
