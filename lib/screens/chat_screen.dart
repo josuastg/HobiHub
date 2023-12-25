@@ -70,6 +70,11 @@ class _ChatScreenState extends State<ChatScreen> {
           time: DateTime.now()),
     ];
 
+    List<bool> shouldDisplayNameList = [
+      for (int index= 0; index < chatBubbles.length; index++)
+        index == 0 || chatBubbles[index].isSelfChat != chatBubbles[index - 1].isSelfChat,
+    ];
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -90,12 +95,9 @@ class _ChatScreenState extends State<ChatScreen> {
             child: ListView.builder(
                 itemCount: chatBubbles.length,
                 itemBuilder: (context, index) {
-                  bool shouldDisplayName = index == 0 ||
-                      chatBubbles[index].isSelfChat !=
-                          chatBubbles[index - 1].isSelfChat;
                   return BubbleChat(
                       chat: chatBubbles[index],
-                      shouldDisplayName: shouldDisplayName);
+                      shouldDisplayName: shouldDisplayNameList[index]);
                 }),
           ),
           Container(
