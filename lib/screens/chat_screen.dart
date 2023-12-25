@@ -63,7 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
           isSelfChat: false,
           time: DateTime.now()),
       Chat(
-          text: "its Manchester City have won againts Liverpool!",
+          text: "its Manchester City have won against Liverpool!",
           name: "Me",
           colorName: "#8E27CE",
           isSelfChat: true,
@@ -100,7 +100,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       shouldDisplayName: shouldDisplayNameList[index]);
                 }),
           ),
-          Container(
+          SizedBox(
             height: 50,
             width: MediaQuery.of(context).size.width,
             child: Stack(
@@ -109,7 +109,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   alignment: Alignment.bottomCenter,
                   child: Row(
                     children: [
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width - 55,
                         child: Card(
                           margin: const EdgeInsets.only(
