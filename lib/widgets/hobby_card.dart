@@ -5,7 +5,7 @@ import 'package:hobihub/widgets/pop_up_join_chat.dart';
 class HobbyCard extends StatelessWidget {
   final Hobby hobby;
 
-  const HobbyCard({Key? key, required this.hobby}) : super(key: key);
+  const HobbyCard({super.key, required this.hobby});
 
   @override
   Widget build(BuildContext context) {

@@ -5,8 +5,26 @@ import 'package:hobihub/screens/home_screen.dart';
 class JoinGroupConfirmation extends StatelessWidget {
   final String title;
 
-  const JoinGroupConfirmation({Key? key, required this.title})
-      : super(key: key);
+  const JoinGroupConfirmation({super.key, required this.title});
+
+  void navigateToChatScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChatScreen(title: title),
+      ),
+    );
+  }
+
+  void closeDialogAndNavigateToHomePage(BuildContext context) {
+    Navigator.pop(context); // Close the dialog
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +80,7 @@ class JoinGroupConfirmation extends StatelessWidget {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             Image.asset(
               imagePath,
               height: 200,
@@ -93,12 +111,7 @@ class JoinGroupConfirmation extends StatelessWidget {
               children: [
                 OutlinedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChatScreen(title: title),
-                      ),
-                    ); // Navigate to ChatScreen
+                    navigateToChatScreen(context);
                   },
                   style: OutlinedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -121,13 +134,7 @@ class JoinGroupConfirmation extends StatelessWidget {
                 const SizedBox(width: 30),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context); // Close the dialog
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomePage(),
-                      ),
-                    ); // Navigate to HomePage
+                    closeDialogAndNavigateToHomePage(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 181, 93, 190),
@@ -145,7 +152,7 @@ class JoinGroupConfirmation extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),
