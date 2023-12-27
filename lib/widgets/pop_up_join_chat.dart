@@ -92,8 +92,8 @@ class JoinGroupConfirmation extends StatelessWidget {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 13, //
-                fontWeight: FontWeight.w600, //
-                color: Color(0xFFB55DBE), //
+                fontWeight: FontWeight.w600,
+                color: Color(0xFFB55DBE),
               ),
             ),
             const SizedBox(height: 10),
@@ -101,8 +101,8 @@ class JoinGroupConfirmation extends StatelessWidget {
               contentText,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 10, // Set the text size to 10pt
-                color: Color(0xFFB55DBE), // Set the text color to #B55DBE
+                fontSize: 10,
+                color: Color(0xFFB55DBE),
               ),
             ),
             const SizedBox(height: 20),
