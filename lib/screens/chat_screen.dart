@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobihub/models/chat.dart';
+import 'package:hobihub/screens/home_screen.dart';
 import 'package:hobihub/widgets/bubble_chat.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -51,7 +52,8 @@ class _ChatScreenState extends State<ChatScreen> {
           isSelfChat: false,
           time: DateTime.now()),
       Chat(
-          text:"It was Liverpool vs. Manchester City. The energy on the field was unbelievable.",
+          text:
+              "It was Liverpool vs. Manchester City. The energy on the field was unbelievable.",
           name: "Me",
           colorName: "#FF0000",
           isSelfChat: true,
@@ -71,8 +73,9 @@ class _ChatScreenState extends State<ChatScreen> {
     ];
 
     List<bool> shouldDisplayNameList = [
-      for (int index= 0; index < chatBubbles.length; index++)
-        index == 0 || chatBubbles[index].isSelfChat != chatBubbles[index - 1].isSelfChat,
+      for (int index = 0; index < chatBubbles.length; index++)
+        index == 0 ||
+            chatBubbles[index].isSelfChat != chatBubbles[index - 1].isSelfChat,
     ];
 
     return Scaffold(
@@ -88,6 +91,16 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+          ),
+        ),
       ),
       body: Column(
         children: [
@@ -128,7 +141,8 @@ class _ChatScreenState extends State<ChatScreen> {
                             maxLines: 5,
                             minLines: 1,
                             decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 20, bottom: 10),
+                              contentPadding:
+                                  EdgeInsets.only(left: 20, bottom: 10),
                               border: InputBorder.none,
                               hintText: "Type Your Message...",
                               hintStyle: TextStyle(
