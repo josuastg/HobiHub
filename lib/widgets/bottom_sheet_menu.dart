@@ -5,14 +5,53 @@ import 'package:hobihub/screens/home_screen.dart';
 import 'package:hobihub/screens/my_profile_screen.dart';
 import 'package:hobihub/screens/login_screen.dart';
 
-class BottomSheetMenu extends StatelessWidget {
+class BottomSheetMenu extends StatefulWidget {
   const BottomSheetMenu({Key? key}) : super(key: key);
+
+  @override
+  _BottomSheetMenuState createState() => _BottomSheetMenuState();
+}
+
+class _BottomSheetMenuState extends State<BottomSheetMenu> {
+  Color purpleTextColor = const Color.fromARGB(255, 181, 93, 190);
+
+  void onNavigationMenu(NavigationMenu menu, BuildContext context) {
+    Navigator.pop(context);
+
+    if (menu.title == 'Home') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    } else if (menu.title == '  My Profile') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MyProfileScreen()),
+      );
+    } else if (menu.title == ' About') {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Info'),
+            content: const Text('Halaman "About" belum tersedia.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
-
-    Color purpleTextColor = const Color.fromARGB(255, 181, 93, 190);
 
     List<NavigationMenu> menus = [
       NavigationMenu(icon: 'assets/images/icon_home.svg', title: 'Home'),
@@ -28,41 +67,7 @@ class BottomSheetMenu extends StatelessWidget {
         children: [
           for (var menu in menus)
             GestureDetector(
-              onTap: () {
-                if (menu.title == 'Home') {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
-                } else if (menu.title == '  My Profile') {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MyProfileScreen()),
-                  );
-                } else if (menu.title == ' About') {
-                  // Handle About menu
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Info'),
-                        content: const Text('Halaman "About" belum tersedia.'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-              },
+              onTap: () => onNavigationMenu(menu, context),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 25.0),
