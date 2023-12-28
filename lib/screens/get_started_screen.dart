@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hobihub/screens/login_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hobihub/screens/login_screen.dart';
 
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

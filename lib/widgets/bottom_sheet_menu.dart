@@ -10,6 +10,8 @@ class BottomSheetMenu extends StatefulWidget {
 
   @override
   _BottomSheetMenuState createState() => _BottomSheetMenuState();
+
+   
 }
 
 class _BottomSheetMenuState extends State<BottomSheetMenu> {
@@ -28,7 +30,7 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
         context,
         MaterialPageRoute(builder: (context) => const MyProfileScreen()),
       );
-    } else if (menu.title == ' About') {
+    } else {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -94,13 +96,7 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
             ),
           const SizedBox(height: 16),
           GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-              );
-            },
+            onTap:() =>_dialogBuilder(context),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
@@ -116,5 +112,107 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
         ],
       ),
     );
+  }
+  Future _dialogBuilder(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)), //this right here
+            child: SizedBox(
+              height: (MediaQuery.of(context).size.height / 2) - 60,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+                child: Column(
+                  children: [
+                    Center(
+                      child: Image.asset(
+                        "assets/images/logging_out.png",
+                        width: double.infinity,
+                        height: 150,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 9,
+                    ),
+                    const Text(
+                      'Are you sure you want to log out?',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 181, 93, 190),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 48,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true)
+                              .pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return const LoginScreen();
+                              },
+                            ),
+                            (_) => false,
+                          );// Tutup bottom sheet
+                          },
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            side: const BorderSide(
+                              color: Color.fromARGB(255, 181, 93, 190),
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Text(
+                            'YES',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 181, 93, 190),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context); // Tutup bottom sheet
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 181, 93, 190),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Text(
+                            'NO',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }
