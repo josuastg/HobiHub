@@ -6,7 +6,7 @@ import 'package:hobihub/screens/my_profile_screen.dart';
 import 'package:hobihub/screens/login_screen.dart';
 
 class BottomSheetMenu extends StatefulWidget {
-  const BottomSheetMenu({Key? key}) : super(key: key);
+  const BottomSheetMenu({super.key});
 
   @override
   _BottomSheetMenuState createState() => _BottomSheetMenuState();
