@@ -25,12 +25,12 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
       );
-    } else if (menu.title == '  My Profile') {
+    } else if (menu.title == 'My Profile') {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MyProfileScreen()),
       );
-    } else if (menu.title == ' About') {
+    } else if (menu.title == 'About') {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -58,8 +58,8 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
     List<NavigationMenu> menus = [
       NavigationMenu(icon: 'assets/images/icon_home.svg', title: 'Home'),
       NavigationMenu(
-          icon: 'assets/images/icon_profile.svg', title: '  My Profile'),
-      NavigationMenu(icon: 'assets/images/icon_info.svg', title: ' About'),
+          icon: 'assets/images/icon_profile.svg', title: 'My Profile'),
+      NavigationMenu(icon: 'assets/images/icon_info.svg', title: 'About'),
     ];
 
     return SizedBox(

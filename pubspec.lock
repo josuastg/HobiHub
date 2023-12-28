@@ -361,17 +361,10 @@ packages:
     dependency: transitive
     description:
       name: web
-<<<<<<< HEAD
-      sha256: dc8ccd225a2005c1be616fe02951e2e342092edf968cf0844220383757ef8f10
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.4-beta"
-=======
       sha256: afe077240a270dcfd2aafe77602b4113645af95d0ad31128cc02bce5ac5d5152
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"
->>>>>>> 3ed80c254e67098fccf9b7369f3df38beadd79ca
   xml:
     dependency: transitive
     description:
