@@ -10,8 +10,6 @@ class BottomSheetMenu extends StatefulWidget {
 
   @override
   _BottomSheetMenuState createState() => _BottomSheetMenuState();
-
-   
 }
 
 class _BottomSheetMenuState extends State<BottomSheetMenu> {
@@ -96,7 +94,7 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
             ),
           const SizedBox(height: 16),
           GestureDetector(
-            onTap:() =>_dialogBuilder(context),
+            onTap: () => _dialogBuilder(context),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
@@ -113,6 +111,7 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
       ),
     );
   }
+
   Future _dialogBuilder(BuildContext context) {
     return showDialog(
         context: context,
@@ -124,7 +123,7 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
             child: SizedBox(
               height: (MediaQuery.of(context).size.height / 2) - 60,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+                padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
                 child: Column(
                   children: [
                     Center(
@@ -148,7 +147,7 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
                       ),
                     ),
                     const SizedBox(
-                      height: 48,
+                      height: 30,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -156,14 +155,14 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
                         OutlinedButton(
                           onPressed: () {
                             Navigator.of(context, rootNavigator: true)
-                              .pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return const LoginScreen();
-                              },
-                            ),
-                            (_) => false,
-                          );// Tutup bottom sheet
+                                .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return const LoginScreen();
+                                },
+                              ),
+                              (_) => false,
+                            ); // Tutup bottom sheet
                           },
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.white,
