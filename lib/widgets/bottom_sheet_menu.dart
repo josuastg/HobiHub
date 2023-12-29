@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobihub/screens/info_app_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobihub/models/navigation_menu.dart';
 import 'package:hobihub/screens/home_screen.dart';
@@ -29,22 +30,9 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
         MaterialPageRoute(builder: (context) => const MyProfileScreen()),
       );
     } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Info'),
-            content: const Text('Halaman "About" belum tersedia.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const InfoApplication()),
       );
     }
   }
