@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobihub/screens/info_app_screen.dart';
 
 class BottomSheetMenu extends StatefulWidget {
   const BottomSheetMenu({super.key});
@@ -18,8 +19,27 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('showModalBottomSheet'),
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context); // Tutup bottom sheet
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => InfoApplication(),
+                  ),
+                );
+              },
+              child: const Text('Go to Info Application'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
