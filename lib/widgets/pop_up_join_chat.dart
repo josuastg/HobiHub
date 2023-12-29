@@ -67,7 +67,6 @@ class JoinGroupConfirmation extends StatelessWidget {
             "Join now and let's celebrate the excitement of gaming together!";
         break;
       default:
-        // Handle unknown title
         break;
     }
 
