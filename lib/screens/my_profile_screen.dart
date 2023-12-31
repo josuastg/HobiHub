@@ -58,7 +58,15 @@ class MyProfileScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const ChangePassword();
+                        },
+                      ),
+                    );
+                  },
                   child: const Text(
                     'Edit Profile',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
