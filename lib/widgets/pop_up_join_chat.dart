@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hobihub/screens/chat_screen.dart';
-import 'package:hobihub/screens/home_screen.dart';
 
 class JoinGroupConfirmation extends StatelessWidget {
   final String title;
@@ -18,12 +17,6 @@ class JoinGroupConfirmation extends StatelessWidget {
 
   void closeDialogAndNavigateToHomePage(BuildContext context) {
     Navigator.pop(context); // Close the dialog
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const HomePage(),
-      ),
-    );
   }
 
   @override

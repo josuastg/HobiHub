@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:336002918720:ios:d64a7704773faf0d14f2a5",
-  "FIREBASE_PROJECT_ID": "hobihub",
-  "GCM_SENDER_ID": "336002918720"
+  "GOOGLE_APP_ID": "1:62340599934:ios:00c8c1e6b37137f17d482f",
+  "FIREBASE_PROJECT_ID": "hobi-hub-app",
+  "GCM_SENDER_ID": "62340599934"
 }
