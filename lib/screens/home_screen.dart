@@ -54,17 +54,20 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: ListView.builder(
-        itemCount: hobbies.length,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              HobbyCard(hobby: hobbies[index]),
-            ],
-          );
-        },
+          itemCount: hobbies.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                HobbyCard(hobby: hobbies[index]),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

@@ -44,38 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCP74AXcs_fHtT3VS4Yx2WuSt84eLSGJxY',
-    appId: '1:336002918720:web:83a0d31e1b69c60d14f2a5',
-    messagingSenderId: '336002918720',
-    projectId: 'hobihub',
-    authDomain: 'hobihub.firebaseapp.com',
-    storageBucket: 'hobihub.appspot.com',
-    measurementId: 'G-FCP23490KN',
+    apiKey: 'AIzaSyAYbyrwdDzVwEDirJ7c48_6dfQAWa-gppk',
+    appId: '1:62340599934:web:3f3049f044f7d6657d482f',
+    messagingSenderId: '62340599934',
+    projectId: 'hobi-hub-app',
+    authDomain: 'hobi-hub-app.firebaseapp.com',
+    storageBucket: 'hobi-hub-app.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBxu8M5lexwXCKvVv36Sx7OaHRa40-NkFY',
-    appId: '1:336002918720:android:9d95084d807ee1dc14f2a5',
-    messagingSenderId: '336002918720',
-    projectId: 'hobihub',
-    storageBucket: 'hobihub.appspot.com',
+    apiKey: 'AIzaSyDDDJ8cXqH3sTC1QOguP6660TqMRgq49Uc',
+    appId: '1:62340599934:android:8947a455e385bd877d482f',
+    messagingSenderId: '62340599934',
+    projectId: 'hobi-hub-app',
+    storageBucket: 'hobi-hub-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBFg4KkDKOVVY-oHW5A4yuksfSmXo64uW8',
-    appId: '1:336002918720:ios:f7f3de17dcb7041014f2a5',
-    messagingSenderId: '336002918720',
-    projectId: 'hobihub',
-    storageBucket: 'hobihub.appspot.com',
+    apiKey: 'AIzaSyCy_SgYR1wVqqJdS5Xp6GTjQwH9c45hFyo',
+    appId: '1:62340599934:ios:b49f74e34bd05e2d7d482f',
+    messagingSenderId: '62340599934',
+    projectId: 'hobi-hub-app',
+    storageBucket: 'hobi-hub-app.appspot.com',
     iosBundleId: 'com.example.hobihub',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBFg4KkDKOVVY-oHW5A4yuksfSmXo64uW8',
-    appId: '1:336002918720:ios:d64a7704773faf0d14f2a5',
-    messagingSenderId: '336002918720',
-    projectId: 'hobihub',
-    storageBucket: 'hobihub.appspot.com',
+    apiKey: 'AIzaSyCy_SgYR1wVqqJdS5Xp6GTjQwH9c45hFyo',
+    appId: '1:62340599934:ios:00c8c1e6b37137f17d482f',
+    messagingSenderId: '62340599934',
+    projectId: 'hobi-hub-app',
+    storageBucket: 'hobi-hub-app.appspot.com',
     iosBundleId: 'com.example.hobihub.RunnerTests',
   );
 }
