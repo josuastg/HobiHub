@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hobihub/screens/change_password_screen.dart';
+import 'package:hobihub/global/const/page_const.dart';
 import 'package:hobihub/widgets/bottom_sheet_menu.dart';
 
 class MyProfileScreen extends StatelessWidget {
@@ -13,6 +13,7 @@ class MyProfileScreen extends StatelessWidget {
       builder: (ctx) => const BottomSheetMenu(),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +25,7 @@ class MyProfileScreen extends StatelessWidget {
                 color: Colors.white,
                 iconSize: 40,
                 padding: const EdgeInsets.only(top: 1),
-                onPressed:()=> _openBottomSheetMenu(context)),
+                onPressed: () => _openBottomSheetMenu(context)),
           ),
           title: const Text(
             'Profile',
@@ -67,7 +68,9 @@ class MyProfileScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, PageConst.editProfilePage);
+                  },
                   child: const Text(
                     'Edit Profile',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
@@ -89,13 +92,7 @@ class MyProfileScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const ChangePassword();
-                        },
-                      ),
-                    );
+                    Navigator.pushNamed(context, PageConst.changePasswordPage);
                   },
                   child: const Text('Change Password',
                       style:
