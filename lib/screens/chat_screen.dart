@@ -98,7 +98,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           onPressed: () => Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => const HomePage(uid: '',)),
           ),
         ),
       ),

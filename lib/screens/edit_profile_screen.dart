@@ -1,6 +1,5 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:hobihub/screens/my_profile_screen.dart';
+import 'package:hobihub/global/const/page_const.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
@@ -26,14 +25,14 @@ class EditProfileScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 150,
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                  decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 10),
                       enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 181, 93, 190),
@@ -43,14 +42,14 @@ class EditProfileScreen extends StatelessWidget {
                           TextStyle(color: Color.fromARGB(255, 181, 93, 190))),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                  decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 10),
                       enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 181, 93, 190),
@@ -60,14 +59,14 @@ class EditProfileScreen extends StatelessWidget {
                           TextStyle(color: Color.fromARGB(255, 181, 93, 190))),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                  decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 10),
                       enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 181, 93, 190),
@@ -77,7 +76,7 @@ class EditProfileScreen extends StatelessWidget {
                           TextStyle(color: Color.fromARGB(255, 181, 93, 190))),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Container(
@@ -92,13 +91,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const MyProfileScreen();
-                        },
-                      ),
-                    );
+                    Navigator.pushNamed(context, PageConst.myProfilePage);
                   },
                   child: const Text(
                     'Change Profile',
