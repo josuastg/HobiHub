@@ -83,7 +83,9 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (context, credentialState) {
         if (credentialState is CredentialLoading) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 181, 93, 190)
+            ),
           );
         }
         if (credentialState is CredentialSuccess) {
