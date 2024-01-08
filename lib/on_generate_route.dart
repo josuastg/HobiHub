@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hobihub/global/const/page_const.dart';
 import 'package:hobihub/screens/change_password_screen.dart';
+import 'package:hobihub/screens/edit_profile_screen.dart';
 import 'package:hobihub/screens/get_started_screen.dart';
 import 'package:hobihub/screens/home_screen.dart';
 import 'package:hobihub/screens/info_app_screen.dart';
@@ -35,6 +36,10 @@ class OnGenerateRoute {
       case PageConst.myProfilePage:
         {
           return materialPageBuilder(widget: const MyProfileScreen());
+        }
+      case PageConst.editProfilePage:
+        {
+          return materialPageBuilder(widget: const EditProfileScreen());
         }
       case PageConst.infoAppPage:
         {

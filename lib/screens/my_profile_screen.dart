@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobihub/global/const/page_const.dart';
 import 'package:hobihub/widgets/bottom_sheet_menu.dart';
-import 'package:hobihub/screens/edit_profile_screen.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -70,13 +69,7 @@ class MyProfileScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const EditProfileScreen();
-                        },
-                      ),
-                    );
+                    Navigator.pushNamed(context, PageConst.editProfilePage);
                   },
                   child: const Text(
                     'Edit Profile',

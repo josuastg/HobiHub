@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:hobihub/global/const/page_const.dart';
 import 'package:hobihub/screens/my_profile_screen.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -72,10 +72,8 @@ class _ChangePasswordState extends State<ChangePassword> {
               Icons.arrow_back,
               color: Colors.white,
             ),
-            onPressed: () => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => MyProfileScreen()),
-            ),
+            onPressed: () =>
+                Navigator.pushNamed(context, PageConst.myProfilePage),
           ),
         ),
         body: SingleChildScrollView(
