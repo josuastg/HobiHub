@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hobihub/screens/info_app_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hobihub/global/const/page_const.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobihub/models/navigation_menu.dart';
-import 'package:hobihub/screens/home_screen.dart';
-import 'package:hobihub/screens/my_profile_screen.dart';
-import 'package:hobihub/screens/login_screen.dart';
+import 'package:hobihub/user/presentation/cubit/auth/auth_cubit.dart';
 
 class BottomSheetMenu extends StatefulWidget {
   const BottomSheetMenu({super.key});
@@ -20,20 +19,11 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
     Navigator.pop(context);
 
     if (menu.title == 'Home') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
+      Navigator.pushNamed(context, PageConst.homePage);
     } else if (menu.title == '  My Profile') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const MyProfileScreen()),
-      );
+      Navigator.pushNamed(context, PageConst.myProfilePage);
     } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const InfoApplication()),
-      );
+      Navigator.pushNamed(context, PageConst.infoAppPage);
     }
   }
 
@@ -142,15 +132,9 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
                       children: [
                         OutlinedButton(
                           onPressed: () {
-                            Navigator.of(context, rootNavigator: true)
-                                .pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return const LoginScreen();
-                                },
-                              ),
-                              (_) => false,
-                            ); // Tutup bottom sheet
+                            Navigator.pop(context); // Tutup bottom sheet
+                            Navigator.pop(context); // Tutup bottom sheet
+                            BlocProvider.of<AuthCubit>(context).loggedOut();
                           },
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.white,
