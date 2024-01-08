@@ -135,6 +135,8 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
                             Navigator.pop(context); // Tutup bottom sheet
                             Navigator.pop(context); // Tutup bottom sheet
                             BlocProvider.of<AuthCubit>(context).loggedOut();
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, PageConst.loginPage, (route) => false);
                           },
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.white,

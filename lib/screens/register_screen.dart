@@ -96,7 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: BlocConsumer<CredentialCubit, CredentialState>(
         builder: (context, credentialState) {
           if (credentialState is CredentialLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -120,6 +120,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         listener: (context, credentialState) {
           if (credentialState is CredentialSuccess) {
             BlocProvider.of<AuthCubit>(context).loggedIn();
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Register and Logged in successfully!'),
+                backgroundColor: Colors.green,
+              ),
+            );
           }
 
           if (credentialState is CredentialFailure) {
