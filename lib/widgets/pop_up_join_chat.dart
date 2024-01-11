@@ -59,7 +59,20 @@ class JoinGroupConfirmation extends StatelessWidget {
             "and provide recommendations to fellow gamers. Dive into the world of gaming with us. "
             "Join now and let's celebrate the excitement of gaming together!";
         break;
+      case 'programming':
+        imagePath = 'assets/images/programming.png';
+        contentTitle = "Welcome to the Programming Community!";
+        contentText =
+            "Dive into the world of coding where you can learn, share, and discuss all things programming. "
+            "Whether you're a beginner or a seasoned developer, there's something for everyone. "
+            "Join our community to explore the endless possibilities of code.";
       default:
+        imagePath = 'assets/images/ImageDefault.jpg';
+        contentTitle = "Welcome to Community!";
+        contentText =
+            "Immerse yourself in a universe dedicated to learning, sharing, and engaging in discussions across a wide range of topics. "
+            "This platform welcomes both novices and experienced individuals, offering resources and opportunities for all. "
+            "Become part of our community and discover the vast potential that lies in the exchange of knowledge and ideas.";
         break;
     }
 

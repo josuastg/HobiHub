@@ -36,11 +36,15 @@ class HobbyCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Image.asset(
+              Image.network(
                 hobby.imageUrl,
                 width: 330,
                 height: 150,
                 fit: BoxFit.cover,
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace? stackTrace) {
+                  return const Text('Could not load image');
+                },
               ),
               const SizedBox(
                 height: 2,
