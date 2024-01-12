@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hobihub/models/hobby.dart';
+import 'package:hobihub/user/data/model/hobby_model.dart';
 import 'package:hobihub/widgets/pop_up_join_chat.dart';
 
 class HobbyCard extends StatelessWidget {
@@ -13,7 +13,7 @@ class HobbyCard extends StatelessWidget {
       borderRadius: const BorderRadius.all(Radius.circular(12)),
       child: GestureDetector(
         onTap: () {
-          _openJoinGroupConfirmation(context, hobby.title);
+          _openJoinGroupConfirmation(context, hobby.groupName);
         },
         child: Container(
           height: 195,
@@ -37,7 +37,7 @@ class HobbyCard extends StatelessWidget {
           child: Column(
             children: [
               Image.network(
-                hobby.imageUrl,
+                hobby.groupProfileImage,
                 width: 330,
                 height: 150,
                 fit: BoxFit.cover,
@@ -50,7 +50,7 @@ class HobbyCard extends StatelessWidget {
                 height: 2,
               ),
               Text(
-                hobby.title,
+                hobby.groupName,
                 style: const TextStyle(
                     color: Color.fromARGB(255, 181, 93, 190),
                     fontSize: 20,

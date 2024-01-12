@@ -1,42 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:hobihub/models/hobby.dart';
+import 'package:hobihub/user/domain/entities/hobby_entity.dart';
+import 'package:hobihub/user/domain/usercases/get_hobbies_usecase.dart';
 import 'package:hobihub/widgets/bottom_sheet_menu.dart';
 import 'package:hobihub/widgets/hobby_card.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hobihub/user/data/repository/hobby_repository_impl.dart';
 
 class HomePage extends StatefulWidget {
   final String uid;
-  const HomePage({super.key, required this.uid});
+  const HomePage({Key? key, required this.uid}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<List<Hobby>> _hobbiesFuture;
+  late Future<List<HobbyEntity>> _hobbiesFuture;
 
   @override
   void initState() {
     super.initState();
-    _hobbiesFuture = _fetchHobbies();
-  }
-
-  Future<List<Hobby>> _fetchHobbies() async {
-    try {
-      QuerySnapshot<Map<String, dynamic>> snapshot =
-          await FirebaseFirestore.instance.collection('group').get();
-
-      return snapshot.docs
-          .where((doc) =>
-              doc.data() != null &&
-              doc.data()!['groupProfileImage'] != null &&
-              doc.data()!['groupName'] != null)
-          .map((doc) => Hobby.fromJson(doc.data()!))
-          .toList();
-    } catch (error) {
-      print('Error fetching hobbies: $error');
-      throw error;
-    }
+    final hobbyRepository = HobbyRepositoryImpl();
+    final getHobbiesUsecase = GetHobbiesUsecase(hobbyRepository);
+    _hobbiesFuture = getHobbiesUsecase.call();
   }
 
   void _openBottomSheetMenu() {
@@ -48,26 +33,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // List<Hobby> hobbies = [
-  //   Hobby(imageUrl: "assets/images/Sports.png", title: "Sports"),
-  //   Hobby(imageUrl: "assets/images/Music.png", title: "Music"),
-  //   Hobby(imageUrl: "assets/images/Travel.png", title: "Traveling"),
-  //   Hobby(imageUrl: "assets/images/Games.png", title: "Games"),
-  // ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {},
-            icon: IconButton(
-              icon: const Icon(Icons.menu),
-              color: Colors.white,
-              iconSize: 30,
-              padding: const EdgeInsets.only(top: 1),
-              onPressed: _openBottomSheetMenu,
-            )),
+          icon: const Icon(Icons.menu),
+          color: Colors.white,
+          iconSize: 30,
+          padding: const EdgeInsets.only(top: 1),
+          onPressed: _openBottomSheetMenu,
+        ),
         backgroundColor: const Color.fromARGB(255, 181, 93, 190),
         title: const Text(
           'All Group Chat',
@@ -79,7 +55,7 @@ class _HomePageState extends State<HomePage> {
         ),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: FutureBuilder<List<Hobby>>(
+      body: FutureBuilder<List<HobbyEntity>>(
         future: _hobbiesFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -97,12 +73,14 @@ class _HomePageState extends State<HomePage> {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
+                // Menggunakan metode toHobby yang telah didefinisikan
+                var hobby = snapshot.data![index].toHobby();
                 return Column(
                   children: [
                     const SizedBox(
                       height: 20,
                     ),
-                    HobbyCard(hobby: snapshot.data![index]),
+                    HobbyCard(hobby: hobby),
                     const SizedBox(
                       height: 20,
                     ),
