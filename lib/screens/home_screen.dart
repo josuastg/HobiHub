@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hobihub/group/domain/entities/single_chat_entity.dart';
 import 'package:hobihub/group/presentation/cubits/group/group_cubit.dart';
 import 'package:hobihub/widgets/bottom_sheet_menu.dart';
 import 'package:hobihub/widgets/hobby_card.dart';
@@ -56,6 +58,8 @@ class _HomePageState extends State<HomePage> {
       ),
       body: BlocBuilder<GroupCubit, GroupState>(
         builder: (context, state) {
+          final currentUser = FirebaseAuth.instance.currentUser;
+
           if (state is GroupLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is GroupLoaded) {
@@ -70,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      HobbyCard(hobby: state.group[index]),
+                      HobbyCard(hobby: state.group[index], singleChatEntity: SingleChatEntity(groupId: state.group[index].uid, groupName: state.group[index].groupName, uid: currentUser!.uid, username: currentUser!.email),),
                       const SizedBox(
                         height: 20,
                       ),

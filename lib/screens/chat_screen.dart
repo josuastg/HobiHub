@@ -4,10 +4,11 @@ import 'package:bubble/bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hobihub/group/domain/entities/single_chat_entity.dart';
+import 'package:hobihub/group/domain/entities/text_message_entity.dart';
 import 'package:hobihub/screens/home_screen.dart';
-import 'package:hobihub/user/domain/entities/single_chat_entity.dart';
-import 'package:hobihub/user/domain/entities/text_message_entity.dart';
-import 'package:hobihub/user/presentation/cubit/chat/chat_cubit.dart';
+import '../group/presentation/cubits/chat/chat_cubit.dart';
+
 import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -30,8 +31,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
+    print(widget.singleChatEntity.groupId);
     BlocProvider.of<ChatCubit>(context)
-        .getMessages(channelId: widget.singleChatEntity.groupId);
+        .getMessages(channelId: '1');
     _messageController.addListener(() {
       setState(() {});
     });
@@ -77,6 +79,7 @@ class _ChatScreenState extends State<ChatScreen> {
       body: Column(
         children: [
           BlocBuilder<ChatCubit, ChatState>(builder: (context, chatState) {
+            print(chatState);
             if (chatState is ChatLoaded) {
               final messages = chatState.messages;
               return Column(
@@ -86,7 +89,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ],
               );
             }
-            return const Center(
+            return Center(
               child: CircularProgressIndicator(),
             );
           })
@@ -212,7 +215,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                   senderId: widget.singleChatEntity.uid,
                                   type: "TEXT",
                                 ),
-                                channelId: widget.singleChatEntity.groupId,
+                                channelId:'',
                               );
                               _clear();
                             },

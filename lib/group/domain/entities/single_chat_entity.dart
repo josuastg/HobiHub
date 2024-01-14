@@ -1,8 +1,8 @@
 class SingleChatEntity {
-  final String groupId;
-  final String groupName;
-  final String uid;
-  final String username;
+  final String? groupId;
+  final String? groupName;
+  final String? uid;
+  final String? username;
   
 
   SingleChatEntity(

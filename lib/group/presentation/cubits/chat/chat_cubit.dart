@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hobihub/user/domain/entities/text_message_entity.dart';
-import 'package:hobihub/user/domain/usercases/get_message_usecase.dart';
-import 'package:hobihub/user/domain/usercases/send_text_message_usecase.dart';
+import 'package:hobihub/group/domain/entities/text_message_entity.dart';
+import 'package:hobihub/group/domain/usecases/get_message_usecase.dart';
+import 'package:hobihub/group/domain/usecases/send_text_message_usecase.dart';
+
 
 part 'chat_state.dart';
 
