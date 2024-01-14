@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobihub/screens/chat_screen.dart';
+import 'package:hobihub/user/domain/entities/single_chat_entity.dart';
 
 class JoinGroupConfirmation extends StatelessWidget {
   final String title;
@@ -10,7 +11,7 @@ class JoinGroupConfirmation extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ChatScreen(title: title),
+        builder: (context) => ChatScreen(title: title, singleChatEntity: SingleChatEntity(groupId: '', groupName: '', uid: '', username: ''),),
       ),
     );
   }
