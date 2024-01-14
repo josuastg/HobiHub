@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hobihub/group/domain/usecases/get_group_usecase.dart';
+import 'package:hobihub/group/presentation/cubits/group/group_cubit.dart';
 import 'package:hobihub/on_generate_route.dart';
 import 'package:hobihub/screens/home_screen.dart';
 import 'package:hobihub/screens/splash_screen.dart';
@@ -36,6 +38,9 @@ class MyApp extends StatelessWidget {
             create: (_) => depedencyInjection.sl<AuthCubit>()..appStarted()),
         BlocProvider<CredentialCubit>(
             create: (_) => depedencyInjection.sl<CredentialCubit>()),
+        BlocProvider<GroupCubit>(
+            create: (context) => GroupCubit(
+                getGroupsUseCase: depedencyInjection.sl<GetGroupsUseCase>())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
