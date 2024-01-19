@@ -5,6 +5,7 @@ import 'package:hobihub/group/domain/entities/single_chat_entity.dart';
 import 'package:hobihub/group/presentation/cubits/group/group_cubit.dart';
 import 'package:hobihub/widgets/bottom_sheet_menu.dart';
 import 'package:hobihub/widgets/hobby_card.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   final String uid;
@@ -23,6 +24,16 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _groupCubit = context.read<GroupCubit>();
     _groupCubit.getGroups();
+    getUser();
+  }
+
+  void getUser() {
+    final authUser = FirebaseAuth.instance.currentUser;
+    print(authUser);
+    if(authUser != null) {
+      final currentUser = FirebaseFirestore.instance.collection('user').doc(authUser.uid);
+      print(currentUser);
+    }
   }
 
   void _openBottomSheetMenu() {

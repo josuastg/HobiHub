@@ -98,7 +98,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   )
                 ],
               );
-            } else {
+            } else if (chatState is ChatFailure) {
+                return const Center(child: Text('Error Fetching Messages'),);
+            }
+            else {
               return const Center(
                 child: CircularProgressIndicator(),
               );
@@ -271,6 +274,16 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   _messageListWidget(List<TextMessageEntity> messages) {
+    if (messages.isEmpty) {
+      return const Expanded(
+        child: Center(
+          child: Text(
+            'No Message avaible...'
+          ),
+        ),
+      );
+    }
+
     if (_scrollController.hasClients) {
       Timer(const Duration(milliseconds: 100), () {
         _scrollController.animateTo(_scrollController.position.maxScrollExtent,
