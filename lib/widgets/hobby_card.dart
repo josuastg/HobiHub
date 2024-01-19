@@ -62,7 +62,6 @@ class HobbyCard extends StatelessWidget {
   }
 
   void _openJoinGroupConfirmation(BuildContext context, String title, SingleChatEntity singleChatEntity) {
-    print(singleChatEntity);
     showDialog(
       context: context,
       builder: (BuildContext context) {
