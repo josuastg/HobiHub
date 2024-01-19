@@ -11,6 +11,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hobihub/user/presentation/cubit/auth/auth_cubit.dart';
 import 'package:hobihub/user/presentation/cubit/credential/credential_cubit.dart';
 import 'firebase_options.dart';
+import 'group/presentation/cubits/chat/chat_cubit.dart';
 import 'injection_container.dart' as depedencyInjection;
 
 void main() async {
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<GroupCubit>(
             create: (context) => GroupCubit(
                 getGroupsUseCase: depedencyInjection.sl<GetGroupsUseCase>())),
+         BlocProvider<ChatCubit>(create: (_) => depedencyInjection.sl<ChatCubit>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

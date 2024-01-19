@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hobihub/group/domain/entities/group_entity.dart';
+import 'package:hobihub/group/domain/entities/single_chat_entity.dart';
 import 'package:hobihub/widgets/pop_up_join_chat.dart';
 
 class HobbyCard extends StatelessWidget {
   final GroupEntity hobby;
+  final SingleChatEntity singleChatEntity;
 
-  const HobbyCard({super.key, required this.hobby});
+  const HobbyCard({super.key, required this.hobby, required this.singleChatEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class HobbyCard extends StatelessWidget {
       borderRadius: const BorderRadius.all(Radius.circular(12)),
       child: GestureDetector(
         onTap: () {
-          _openJoinGroupConfirmation(context, hobby.groupName ?? '');
+          _openJoinGroupConfirmation(context, hobby.groupName ?? '', singleChatEntity);
         },
         child: Container(
           height: 195,
@@ -59,11 +61,11 @@ class HobbyCard extends StatelessWidget {
     );
   }
 
-  void _openJoinGroupConfirmation(BuildContext context, String title) {
+  void _openJoinGroupConfirmation(BuildContext context, String title, SingleChatEntity singleChatEntity) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return JoinGroupConfirmation(title: title);
+        return JoinGroupConfirmation(title: title, singleChatEntity: singleChatEntity,);
       },
     );
   }
