@@ -74,7 +74,14 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      HobbyCard(hobby: state.group[index], singleChatEntity: SingleChatEntity(groupId: state.group[index].uid, groupName: state.group[index].groupName, uid: currentUser!.uid, username: currentUser!.email),),
+                      HobbyCard(
+                        hobby: state.group[index],
+                        singleChatEntity: SingleChatEntity(
+                            groupId: state.group[index].uid,
+                            groupName: state.group[index].groupName,
+                            uid: currentUser!.uid,
+                            username: currentUser!.email),
+                      ),
                       const SizedBox(
                         height: 20,
                       ),

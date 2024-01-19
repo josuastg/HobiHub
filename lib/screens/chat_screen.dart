@@ -25,15 +25,22 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
+  String? _previousSenderId;
+
+  Color _getRandomColor(String name) {
+    final hash = name.hashCode;
+    return Color.fromARGB(255, hash % 256, (hash ~/ 256) % 256, (hash ~/ 65536) % 256);
+  }
+
   bool _isButtonSendDisabled() {
     return _messageController.text.isEmpty || _messageController.text == null;
   }
 
   @override
   void initState() {
-    print(widget.singleChatEntity.groupId);
+    print("hasil widgetSingleChatEntity : ${widget.singleChatEntity.groupId}");
     BlocProvider.of<ChatCubit>(context)
-        .getMessages(channelId: '1');
+        .getMessages(channelId: widget.singleChatEntity.groupId!);
     _messageController.addListener(() {
       setState(() {});
     });
@@ -76,23 +83,29 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
       ),
-      body: Column(
+      body: Stack(
         children: [
           BlocBuilder<ChatCubit, ChatState>(builder: (context, chatState) {
-            print(chatState);
+            print("hasilnya dari ChatState: $chatState");
             if (chatState is ChatLoaded) {
               final messages = chatState.messages;
               return Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   _messageListWidget(messages),
                   _sendMessageTextField(),
+                  const SizedBox(
+                    height: 10,
+                  )
                 ],
               );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          })
+          }),
         ],
       ),
     );
@@ -101,57 +114,75 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget _bubbleChatLayout({
     required String text,
     required String time,
-    required Color color,
     required TextAlign align,
     required CrossAxisAlignment boxAlign,
     required CrossAxisAlignment crossAlign,
     required String name,
     required TextAlign alignName,
     required BubbleNip nip,
+    required String senderId,
   }) {
+    final isMe = senderId == widget.singleChatEntity.uid;
+    final shouldName = !isMe && senderId != _previousSenderId;
+    final isFirstMessage = _previousSenderId != senderId;
+    final nip = isFirstMessage ? (isMe ? BubbleNip.rightTop : BubbleNip.leftTop) : BubbleNip.no;
+
+     _previousSenderId = senderId;
+
+    final textColor = isMe ? Colors.white : Colors.black;
+    final nameColor = shouldName ? _getRandomColor(name) : null;
     return Column(
       crossAxisAlignment: crossAlign,
       children: [
         ConstrainedBox(
           constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width * 0.90,
+            maxWidth: MediaQuery.of(context).size.width * 0.85,
           ),
           child: Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(2),
             margin: const EdgeInsets.all(3),
             child: Bubble(
-              color: color,
+              color: isMe
+                  ? const Color.fromARGB(255, 181, 93, 190)
+                  : const Color.fromARGB(255, 245, 247, 251),
               nip: nip,
+              radius: const Radius.circular(11),
+              margin: !isFirstMessage ? const BubbleEdges.only(right: 6.7, left: 6.7) : null,
               child: Column(
                 crossAxisAlignment: crossAlign,
-                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    "$name",
-                    textAlign: alignName,
-                    style: const TextStyle(
-                        fontSize: 17, fontWeight: FontWeight.bold),
-                  ),
+                  if (shouldName)
+                    Text(
+                      "$name",
+                      textAlign: alignName,
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: nameColor),
+                    ),
                   Text(
                     text,
                     textAlign: align,
-                    style: const TextStyle(fontSize: 16),
+                    style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400,
+                        color: textColor),
                   ),
                   Text(
                     time,
                     textAlign: align,
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.black.withOpacity(
-                        .4,
-                      ),
+                      color: isMe
+                          ? Colors.white.withOpacity(.6)
+                          : Colors.black.withOpacity(.4),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
@@ -208,15 +239,16 @@ class _ChatScreenState extends State<ChatScreen> {
                           : () {
                               BlocProvider.of<ChatCubit>(context)
                                   .sendTextMessage(
-                                textMessageEntity: TextMessageEntity(
-                                  time: Timestamp.now(),
-                                  content: _messageController.text,
-                                  senderName: widget.singleChatEntity.username,
-                                  senderId: widget.singleChatEntity.uid,
-                                  type: "TEXT",
-                                ),
-                                channelId:'',
-                              );
+                                      textMessageEntity: TextMessageEntity(
+                                        time: Timestamp.now(),
+                                        content: _messageController.text,
+                                        senderName:
+                                            widget.singleChatEntity.username,
+                                        senderId: widget.singleChatEntity.uid,
+                                        type: "TEXT",
+                                      ),
+                                      channelId:
+                                          widget.singleChatEntity.groupId!);
                               _clear();
                             },
                       icon: const Icon(
@@ -259,26 +291,26 @@ class _ChatScreenState extends State<ChatScreen> {
                 text: singleMessage.content!,
                 time:
                     DateFormat('hh:mm a').format(singleMessage.time!.toDate()),
-                color: const Color.fromARGB(255, 181, 93, 190),
                 align: TextAlign.left,
                 boxAlign: CrossAxisAlignment.start,
                 crossAlign: CrossAxisAlignment.end,
                 name: "Me",
                 alignName: TextAlign.end,
                 nip: BubbleNip.rightTop,
+                senderId: singleMessage.senderId!,
               );
             } else {
               return _bubbleChatLayout(
                 text: singleMessage.content!,
                 time:
                     DateFormat('hh:mm a').format(singleMessage.time!.toDate()),
-                color: Colors.grey,
                 align: TextAlign.left,
                 boxAlign: CrossAxisAlignment.start,
                 crossAlign: CrossAxisAlignment.start,
                 name: "${singleMessage.senderName}",
                 alignName: TextAlign.end,
                 nip: BubbleNip.leftTop,
+                senderId: singleMessage.senderId!,
               );
             }
           }),

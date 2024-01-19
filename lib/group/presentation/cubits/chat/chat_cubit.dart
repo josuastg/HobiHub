@@ -23,9 +23,11 @@ class ChatCubit extends Cubit<ChatState> {
       streamResponse.listen((messages) {
         emit(ChatLoaded(messages: messages));
       });
-    }on SocketException catch(_){
+    }on SocketException catch(e){
+      print('SocketException during getMessages: $e');
       emit(ChatFailure());
-    }catch (_) {
+    }catch (e) {
+      print('Error during getMessages: $e');
       emit(ChatFailure());
     }
   }
@@ -33,9 +35,11 @@ class ChatCubit extends Cubit<ChatState> {
   Future<void> sendTextMessage ({required TextMessageEntity textMessageEntity, required String channelId}) async{
     try {
       await sendTextMessageUseCase.call(textMessageEntity, channelId);
-    }on SocketException catch(_) {
+    }on SocketException catch(e) {
+      print('SocketException during sendTextMessages: $e');
       emit(ChatFailure());
-    }catch (_) {
+    }catch (e) {
+      print('Error during sendTextMessage: $e');
       emit(ChatFailure());
     }
   }

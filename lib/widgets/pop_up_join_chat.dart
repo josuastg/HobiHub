@@ -13,7 +13,7 @@ class JoinGroupConfirmation extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ChatScreen(title: title, singleChatEntity: SingleChatEntity(groupId: '', groupName: '', uid: '', username: '')),
+        builder: (context) => ChatScreen(title: title, singleChatEntity: singleChatEntity),
       ),
     );
   }

@@ -22,9 +22,8 @@ class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
 
   @override
   Stream<List<TextMessageEntity>> getMessages(String channelId) {
-    // TODO: implement getMessages
     final messagesCollection = firestore
-        .collection("group")
+        .collection("groupChatChannel")
         .doc(channelId)
         .collection("messages");
 
@@ -34,27 +33,36 @@ class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
         .toList());
   }
 
-  @override
-  Future<void> sendTextMessage(TextMessageEntity textMessageEntity, String channelId) async {
-    // TODO: implement sendTextMessage
-    final messagesCollection = firestore
-        .collection("group")
-        .doc(channelId)
-        .collection("messages");
+@override
+Future<void> sendTextMessage(TextMessageEntity textMessageEntity, String channelId) async {
+  try {
+    if (channelId != null && channelId.isNotEmpty) {
+      final messagesCollection = firestore
+          .collection("groupChatChannel")
+          .doc(channelId)
+          .collection("messages");
 
-    final messageId = messagesCollection.doc().id;
+      final messageId = messagesCollection.doc().id;
 
-    final newTextMessage = TextMessageModel(
-            content: textMessageEntity.content,
-            senderName: textMessageEntity.senderName,
-            senderId: textMessageEntity.senderId,
-            recipientId: textMessageEntity.recipientId,
-            receiverName: textMessageEntity.receiverName,
-            time: textMessageEntity.time,
-            messageId: messageId,
-            type: "TEXT")
-        .toDocument();
+      final newTextMessage = TextMessageModel(
+              content: textMessageEntity.content,
+              senderName: textMessageEntity.senderName,
+              senderId: textMessageEntity.senderId,
+              recipientId: textMessageEntity.recipientId,
+              receiverName: textMessageEntity.receiverName,
+              time: textMessageEntity.time,
+              messageId: messageId,
+              type: "TEXT")
+          .toDocument();
 
-  await  messagesCollection.doc(messageId).set(newTextMessage);
+      await messagesCollection.doc(messageId).set(newTextMessage);
+    } else {
+      print("Error sending message 1: 'channelId' is null or empty.");
+    }
+  } catch (e) {
+    print("Error sending message 2: $e");
+    throw e;
   }
+}
+
 }
