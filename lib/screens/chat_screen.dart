@@ -50,7 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
     getUser();
   }
 
-  final firestore = FirebaseFirestore.instance;   //
+final firestore = FirebaseFirestore.instance;   //
 FirebaseAuth auth = FirebaseAuth.instance; 
  void getUser() async {
   final CollectionReference users = firestore.collection('users');
@@ -112,7 +112,9 @@ FirebaseAuth auth = FirebaseAuth.instance;
                 ],
               );
             } else if (chatState is ChatFailure) {
-                return const Center(child: Text('Error Fetching Messages'),);
+              return const Center(
+                child: Text("Failed to send messages!"),
+              );
             }
             else {
               return const Center(

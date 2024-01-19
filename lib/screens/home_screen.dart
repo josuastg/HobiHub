@@ -24,16 +24,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _groupCubit = context.read<GroupCubit>();
     _groupCubit.getGroups();
-    getUser();
-  }
-
-  void getUser() {
-    final authUser = FirebaseAuth.instance.currentUser;
-    print(authUser);
-    if(authUser != null) {
-      final currentUser = FirebaseFirestore.instance.collection('user').doc(authUser.uid);
-      print(currentUser);
-    }
   }
 
   void _openBottomSheetMenu() {
