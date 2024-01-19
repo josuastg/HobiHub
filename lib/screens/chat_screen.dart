@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bubble/bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hobihub/group/domain/entities/single_chat_entity.dart';
@@ -26,6 +27,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
 
   String? _previousSenderId;
+  String username = "";
+
 
   Color _getRandomColor(String name) {
     final hash = name.hashCode;
@@ -44,7 +47,17 @@ class _ChatScreenState extends State<ChatScreen> {
       setState(() {});
     });
     super.initState();
+    getUser();
   }
+
+  final firestore = FirebaseFirestore.instance;   //
+FirebaseAuth auth = FirebaseAuth.instance; 
+ void getUser() async {
+  final CollectionReference users = firestore.collection('users');
+  final String uid = auth.currentUser!.uid;
+  final result = await users.doc(uid).get();
+  username  = result['fullName'];
+}
 
   @override
   void dispose() {
@@ -244,7 +257,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                         time: Timestamp.now(),
                                         content: _messageController.text,
                                         senderName:
-                                            widget.singleChatEntity.username,
+                                            username,
                                         senderId: widget.singleChatEntity.uid,
                                         type: "TEXT",
                                       ),

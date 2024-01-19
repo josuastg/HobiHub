@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                             groupId: state.group[index].uid,
                             groupName: state.group[index].groupName,
                             uid: currentUser!.uid,
-                            username: currentUser!.email),
+                            username: ''),
                       ),
                       const SizedBox(
                         height: 20,
