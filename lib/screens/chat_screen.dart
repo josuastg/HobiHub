@@ -38,7 +38,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    print("hasil widgetSingleChatEntity : ${widget.singleChatEntity.groupId}");
     BlocProvider.of<ChatCubit>(context)
         .getMessages(channelId: widget.singleChatEntity.groupId!);
     _messageController.addListener(() {
@@ -86,7 +85,6 @@ class _ChatScreenState extends State<ChatScreen> {
       body: Stack(
         children: [
           BlocBuilder<ChatCubit, ChatState>(builder: (context, chatState) {
-            print("hasilnya dari ChatState: $chatState");
             if (chatState is ChatLoaded) {
               final messages = chatState.messages;
               return Column(
