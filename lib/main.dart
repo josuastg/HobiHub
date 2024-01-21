@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hobihub/group/domain/usecases/get_group_usecase.dart';
+import 'package:hobihub/group/presentation/cubits/group/group_cubit.dart';
 import 'package:hobihub/on_generate_route.dart';
 import 'package:hobihub/screens/home_screen.dart';
 import 'package:hobihub/screens/splash_screen.dart';
@@ -9,6 +11,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hobihub/user/presentation/cubit/auth/auth_cubit.dart';
 import 'package:hobihub/user/presentation/cubit/credential/credential_cubit.dart';
 import 'firebase_options.dart';
+import 'group/presentation/cubits/chat/chat_cubit.dart';
 import 'injection_container.dart' as depedencyInjection;
 
 void main() async {
@@ -36,6 +39,10 @@ class MyApp extends StatelessWidget {
             create: (_) => depedencyInjection.sl<AuthCubit>()..appStarted()),
         BlocProvider<CredentialCubit>(
             create: (_) => depedencyInjection.sl<CredentialCubit>()),
+        BlocProvider<GroupCubit>(
+            create: (context) => GroupCubit(
+                getGroupsUseCase: depedencyInjection.sl<GetGroupsUseCase>())),
+         BlocProvider<ChatCubit>(create: (_) => depedencyInjection.sl<ChatCubit>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

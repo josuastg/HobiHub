@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hobihub/models/hobby.dart';
+import 'package:hobihub/group/domain/entities/group_entity.dart';
+import 'package:hobihub/group/domain/entities/single_chat_entity.dart';
 import 'package:hobihub/widgets/pop_up_join_chat.dart';
 
 class HobbyCard extends StatelessWidget {
-  final Hobby hobby;
+  final GroupEntity hobby;
+  final SingleChatEntity singleChatEntity;
 
-  const HobbyCard({super.key, required this.hobby});
+  const HobbyCard({super.key, required this.hobby, required this.singleChatEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class HobbyCard extends StatelessWidget {
       borderRadius: const BorderRadius.all(Radius.circular(12)),
       child: GestureDetector(
         onTap: () {
-          _openJoinGroupConfirmation(context, hobby.title);
+          _openJoinGroupConfirmation(context, hobby.groupName ?? '', singleChatEntity);
         },
         child: Container(
           height: 195,
@@ -36,8 +38,8 @@ class HobbyCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Image.asset(
-                hobby.imageUrl,
+              Image.network(
+                hobby.groupProfileImage ?? '',
                 width: 330,
                 height: 150,
                 fit: BoxFit.cover,
@@ -46,7 +48,7 @@ class HobbyCard extends StatelessWidget {
                 height: 2,
               ),
               Text(
-                hobby.title,
+                hobby.groupName ?? '',
                 style: const TextStyle(
                     color: Color.fromARGB(255, 181, 93, 190),
                     fontSize: 20,
@@ -59,11 +61,11 @@ class HobbyCard extends StatelessWidget {
     );
   }
 
-  void _openJoinGroupConfirmation(BuildContext context, String title) {
+  void _openJoinGroupConfirmation(BuildContext context, String title, SingleChatEntity singleChatEntity) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return JoinGroupConfirmation(title: title);
+        return JoinGroupConfirmation(title: title, singleChatEntity: singleChatEntity,);
       },
     );
   }
