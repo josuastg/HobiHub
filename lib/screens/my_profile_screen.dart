@@ -1,9 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hobihub/global/const/page_const.dart';
 import 'package:hobihub/widgets/bottom_sheet_menu.dart';
 
-class MyProfileScreen extends StatelessWidget {
+class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  _MyProfileScreenState createState() => _MyProfileScreenState();
+}
+
+class _MyProfileScreenState extends State<MyProfileScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late User? user;
 
   void _openBottomSheetMenu(BuildContext context) {
     showModalBottomSheet(
@@ -15,24 +24,31 @@ class MyProfileScreen extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    super.initState();
+    user = _auth.currentUser;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {},
-            icon: IconButton(
-                icon: const Icon(Icons.menu),
-                color: Colors.white,
-                iconSize: 40,
-                padding: const EdgeInsets.only(top: 1),
-                onPressed: () => _openBottomSheetMenu(context)),
-          ),
-          title: const Text(
-            'Profile',
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w700, fontSize: 22),
-          ),
-          backgroundColor: const Color.fromARGB(255, 181, 93, 190)),
+        leading: IconButton(
+          onPressed: () {},
+          icon: IconButton(
+              icon: const Icon(Icons.menu),
+              color: Colors.white,
+              iconSize: 40,
+              padding: const EdgeInsets.only(top: 1),
+              onPressed: () => _openBottomSheetMenu(context)),
+        ),
+        title: const Text(
+          'Profile',
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 22),
+        ),
+        backgroundColor: const Color.fromARGB(255, 181, 93, 190),
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -40,16 +56,16 @@ class MyProfileScreen extends StatelessWidget {
               const SizedBox(
                 height: 180,
               ),
-              const Text(
-                'Name',
-                style: TextStyle(
+              Text(
+                '${user ?? "No Name"}',
+                style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     color: Color.fromARGB(255, 181, 93, 190),
                     fontSize: 16),
               ),
-              const Text(
-                'Email@gmail.com',
-                style: TextStyle(
+              Text(
+                '${user?.email ?? "No Email"}',
+                style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     color: Color.fromARGB(255, 181, 93, 190),
                     fontSize: 16),
