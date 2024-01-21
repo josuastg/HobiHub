@@ -42,7 +42,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<GroupCubit>(
             create: (context) => GroupCubit(
                 getGroupsUseCase: depedencyInjection.sl<GetGroupsUseCase>())),
-         BlocProvider<ChatCubit>(create: (_) => depedencyInjection.sl<ChatCubit>()),
+        BlocProvider<ChatCubit>(
+            create: (_) => depedencyInjection.sl<ChatCubit>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
