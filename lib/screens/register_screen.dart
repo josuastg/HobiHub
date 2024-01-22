@@ -27,7 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
-  PickedFile _imageFile = PickedFile('');
+  File? _imageFile;
   bool _fullName = false;
   bool _passwordMatch = true;
   bool _passwordError = false;
@@ -43,7 +43,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         _passwordController.text.isEmpty ||
         _confirmPasswordController.text.isEmpty ||
         _passwordController.text != _confirmPasswordController.text ||
-        _imageFile.path.isEmpty;
+        _imageFile == null ||
+        _imageFile!.path.isEmpty;
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -121,15 +122,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     if (pickedImage != null) {
       setState(() {
-        _imageFile = PickedFile(pickedImage.path);
+        _imageFile = File(pickedImage.path);
       });
     }
   }
 
   void submitSignUp() {
     if (_imageFile != null) {
-      File imageFile = File(_imageFile.path);
-      di.sl<UploadProfileImageUseCase>().call(file: imageFile).then((imageUrl) {
+      di
+          .sl<UploadProfileImageUseCase>()
+          .call(file: _imageFile!)
+          .then((imageUrl) {
         BlocProvider.of<CredentialCubit>(context)
             .signUpSubmit(
                 user: UserEntity(
@@ -137,7 +140,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     email: _emailController.text,
                     password: _passwordController.text,
                     imgUrl: imageUrl))
-            .then((value) {});
+            .then((value) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Register Profile Successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        });
       });
     }
   }
@@ -150,10 +160,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: CircleAvatar(
         radius: 50,
         backgroundColor: Colors.white,
-        backgroundImage: _imageFile.path.isNotEmpty
-            ? FileImage(File(_imageFile.path)) as ImageProvider<Object>
+        backgroundImage: _imageFile != null && _imageFile!.path.isNotEmpty
+            ? FileImage(File(_imageFile!.path)) as ImageProvider<Object>
             : null,
-        child: _imageFile.path.isEmpty
+        child: _imageFile == null ||
+                (_imageFile != null && _imageFile!.path.isEmpty)
             ? SvgPicture.asset(
                 'assets/images/Vector.svg',
                 width: 100,
@@ -197,7 +208,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             BlocProvider.of<AuthCubit>(context).loggedIn();
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Register and Logged in successfully!'),
+                content: Text('Logged in successfully!'),
                 backgroundColor: Colors.green,
               ),
             );
