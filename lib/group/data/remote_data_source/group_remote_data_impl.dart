@@ -27,42 +27,42 @@ class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
         .doc(channelId)
         .collection("messages");
 
-    return messagesCollection.orderBy('time').snapshots().map((querySnap) => querySnap
-        .docs
-        .map((queryDoc) => TextMessageModel.fromSnapshot(queryDoc))
-        .toList());
+    return messagesCollection.orderBy('time').snapshots().map((querySnap) =>
+        querySnap.docs
+            .map((queryDoc) => TextMessageModel.fromSnapshot(queryDoc))
+            .toList());
   }
 
-@override
-Future<void> sendTextMessage(TextMessageEntity textMessageEntity, String channelId) async {
-  try {
-    if (channelId != null && channelId.isNotEmpty) {
-      final messagesCollection = firestore
-          .collection("groupChatChannel")
-          .doc(channelId)
-          .collection("messages");
+  @override
+  Future<void> sendTextMessage(
+      TextMessageEntity textMessageEntity, String channelId) async {
+    try {
+      if (channelId != null && channelId.isNotEmpty) {
+        final messagesCollection = firestore
+            .collection("groupChatChannel")
+            .doc(channelId)
+            .collection("messages");
 
-      final messageId = messagesCollection.doc().id;
+        final messageId = messagesCollection.doc().id;
 
-      final newTextMessage = TextMessageModel(
-              content: textMessageEntity.content,
-              senderName: textMessageEntity.senderName,
-              senderId: textMessageEntity.senderId,
-              recipientId: textMessageEntity.recipientId,
-              receiverName: textMessageEntity.receiverName,
-              time: textMessageEntity.time,
-              messageId: messageId,
-              type: "TEXT")
-          .toDocument();
+        final newTextMessage = TextMessageModel(
+                content: textMessageEntity.content,
+                senderName: textMessageEntity.senderName,
+                senderId: textMessageEntity.senderId,
+                recipientId: textMessageEntity.recipientId,
+                receiverName: textMessageEntity.receiverName,
+                time: textMessageEntity.time,
+                messageId: messageId,
+                type: "TEXT")
+            .toDocument();
 
-      await messagesCollection.doc(messageId).set(newTextMessage);
-    } else {
-      print("Error sending message 1: 'channelId' is null or empty.");
+        await messagesCollection.doc(messageId).set(newTextMessage);
+      } else {
+        print("Error sending message 1: 'channelId' is null or empty.");
+      }
+    } catch (e) {
+      print("Error sending message 2: $e");
+      throw e;
     }
-  } catch (e) {
-    print("Error sending message 2: $e");
-    throw e;
   }
-}
-
 }

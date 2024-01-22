@@ -5,7 +5,6 @@ import 'package:hobihub/group/domain/entities/single_chat_entity.dart';
 import 'package:hobihub/group/presentation/cubits/group/group_cubit.dart';
 import 'package:hobihub/widgets/bottom_sheet_menu.dart';
 import 'package:hobihub/widgets/hobby_card.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   final String uid;
@@ -81,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                             groupId: state.group[index].uid,
                             groupName: state.group[index].groupName,
                             uid: currentUser!.uid,
-                            username: ''),
+                            username: '',),
                       ),
                       const SizedBox(
                         height: 20,
