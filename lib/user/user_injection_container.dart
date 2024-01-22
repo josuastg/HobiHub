@@ -14,6 +14,8 @@ import 'package:hobihub/user/domain/usercases/sign_out_usecase.dart';
 import 'package:hobihub/user/domain/usercases/sign_up_usecase.dart';
 import 'package:hobihub/user/presentation/cubit/auth/auth_cubit.dart';
 import 'package:hobihub/user/presentation/cubit/credential/credential_cubit.dart';
+import 'package:hobihub/user/presentation/cubit/single_user/single_user_cubit.dart';
+import 'package:hobihub/user/presentation/cubit/user/user_cubit.dart';
 
 import '../injection_container.dart';
 
@@ -23,6 +25,14 @@ Future<void> userInjectionContainer() async {
       isSignInUseCase: sl.call(),
       signOutUseCase: sl.call(),
       getCurrentUIDUseCase: sl.call()));
+
+  sl.registerFactory<SingleUserCubit>(
+      () => SingleUserCubit(getSingleUserUseCase: sl.call()));
+
+  sl.registerFactory<UserCubit>(() => UserCubit(
+        getAllUsersUseCase: sl.call(),
+        getUpdateUserUseCase: sl.call(),
+      ));
 
   sl.registerFactory<CredentialCubit>(() => CredentialCubit(
       forgotPasswordUseCase: sl.call(),

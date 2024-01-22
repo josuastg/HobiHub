@@ -13,7 +13,7 @@ class UserModel extends UserEntity {
     var snapshotMap = snapshot.data() as Map<String, dynamic>;
 
     return UserModel(
-        fullName: snapshotMap['name'],
+        fullName: snapshotMap['fullName'],
         uid: snapshotMap['uid'],
         email: snapshotMap['email']);
   }
