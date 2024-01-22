@@ -149,6 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       },
       child: CircleAvatar(
         radius: 50,
+        backgroundColor: Colors.white,
         backgroundImage: _imageFile.path.isNotEmpty
             ? FileImage(File(_imageFile.path)) as ImageProvider<Object>
             : null,
