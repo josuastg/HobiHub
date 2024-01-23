@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:bubble/bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,6 +11,8 @@ import 'package:hobihub/group/domain/entities/single_chat_entity.dart';
 import 'package:hobihub/group/domain/entities/text_message_entity.dart';
 import 'package:hobihub/screens/home_screen.dart';
 import '../group/presentation/cubits/chat/chat_cubit.dart';
+import 'package:http/http.dart' as http;
+import 'package:hobihub/global/firebase_fcm.dart';
 
 import 'package:intl/intl.dart';
 
@@ -22,17 +26,19 @@ class ChatScreen extends StatefulWidget {
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
+GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
-  String? _previousSenderId;
+  String _previousSenderId = "";
   String username = "";
-
 
   Color _getRandomColor(String name) {
     final hash = name.hashCode;
-    return Color.fromARGB(255, hash % 256, (hash ~/ 256) % 256, (hash ~/ 65536) % 256);
+    return Color.fromARGB(
+        255, hash % 256, (hash ~/ 256) % 256, (hash ~/ 65536) % 256);
   }
 
   bool _isButtonSendDisabled() {
@@ -50,14 +56,14 @@ class _ChatScreenState extends State<ChatScreen> {
     getUser();
   }
 
-final firestore = FirebaseFirestore.instance;   //
-FirebaseAuth auth = FirebaseAuth.instance; 
- void getUser() async {
-  final CollectionReference users = firestore.collection('users');
-  final String uid = auth.currentUser!.uid;
-  final result = await users.doc(uid).get();
-  username  = result['fullName'];
-}
+  final firestore = FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  void getUser() async {
+    final CollectionReference users = firestore.collection('users');
+    final String uid = auth.currentUser!.uid;
+    final result = await users.doc(uid).get();
+    username = result['fullName'];
+  }
 
   @override
   void dispose() {
@@ -115,8 +121,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
               return const Center(
                 child: Text("Failed to send messages!"),
               );
-            }
-            else {
+            } else {
               return const Center(
                 child: CircularProgressIndicator(),
               );
@@ -140,10 +145,12 @@ FirebaseAuth auth = FirebaseAuth.instance;
   }) {
     final isMe = senderId == widget.singleChatEntity.uid;
     final shouldName = !isMe && senderId != _previousSenderId;
-    final isFirstMessage = _previousSenderId != senderId;
-    final nip = isFirstMessage ? (isMe ? BubbleNip.rightTop : BubbleNip.leftTop) : BubbleNip.no;
+    final isFirstMessage = _previousSenderId == senderId;
+    final nip = !isFirstMessage
+        ? (isMe ? BubbleNip.rightTop : BubbleNip.leftTop)
+        : BubbleNip.no;
 
-     _previousSenderId = senderId;
+    _previousSenderId = senderId;
 
     final textColor = isMe ? Colors.white : Colors.black;
     final nameColor = shouldName ? _getRandomColor(name) : null;
@@ -163,7 +170,9 @@ FirebaseAuth auth = FirebaseAuth.instance;
                   : const Color.fromARGB(255, 245, 247, 251),
               nip: nip,
               radius: const Radius.circular(11),
-              margin: !isFirstMessage ? const BubbleEdges.only(right: 6.7, left: 6.7) : null,
+              margin: isFirstMessage
+                  ? const BubbleEdges.only(right: 6.7, left: 6.7)
+                  : null,
               child: Column(
                 crossAxisAlignment: crossAlign,
                 children: [
@@ -258,13 +267,13 @@ FirebaseAuth auth = FirebaseAuth.instance;
                                       textMessageEntity: TextMessageEntity(
                                         time: Timestamp.now(),
                                         content: _messageController.text,
-                                        senderName:
-                                            username,
+                                        senderName: username,
                                         senderId: widget.singleChatEntity.uid,
                                         type: "TEXT",
                                       ),
                                       channelId:
-                                          widget.singleChatEntity.groupId!);
+                                          widget.singleChatEntity.groupId!)
+                                  .then((value) => sendNotificationToAllUsers('Group Chat: ${widget.singleChatEntity.groupName}', 'New Message! from $username'));
                               _clear();
                             },
                       icon: const Icon(
@@ -292,9 +301,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
     if (messages.isEmpty) {
       return const Expanded(
         child: Center(
-          child: Text(
-            'No Message avaible...'
-          ),
+          child: Text('No Message avaible...'),
         ),
       );
     }
@@ -341,5 +348,60 @@ FirebaseAuth auth = FirebaseAuth.instance;
             }
           }),
     );
+  }
+}
+
+Future<void> sendNotificationToAllUsers(String title, String content) async {
+  try {
+    QuerySnapshot usersSnapshot = await FirebaseFirestore.instance.collection('users').get();
+
+    for (QueryDocumentSnapshot userDoc in usersSnapshot.docs) {
+      Map<String, dynamic>? userData = userDoc.data() as Map<String, dynamic>?;
+
+      if (userData != null && userData.containsKey('token')) {
+        String? token = userData['token'];
+        if (token != null) {
+          await sendPushNotification(token, title, content);
+        }
+      } else {
+        print('Token field does not exist in the users document');
+        print('User Document ID: ${userDoc.id}');
+        print('User Document Data: ${userDoc.data()}');
+      }
+    }
+  } catch (e) {
+    _showErrorSnackBar('Failed Send Notification to all users');
+  }
+}
+
+void _showErrorSnackBar(String message) {
+  final snackBar = SnackBar(content: Text(message), duration: const Duration(seconds: 3),
+  );
+  _scaffoldMessengerKey.currentState?.showSnackBar(snackBar);
+}
+
+Future<void> sendPushNotification(
+  String token, String title ,String content)async {
+  try {
+    final body = {
+      "to": token,
+      "notification": {
+        "title": title,
+        "body": content,
+      },
+    };
+
+    var response =
+        await http.post(Uri.parse(FirebaseFcm.urlFcm),
+            headers: {
+              HttpHeaders.contentTypeHeader: 'application/json',
+              HttpHeaders.authorizationHeader: 'key= ${FirebaseFcm.key}'
+            },
+            body: jsonEncode(body));
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+  } 
+  catch (e) {
+    print('\nsendPushNotificationsError: $e');
   }
 }

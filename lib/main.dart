@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hobihub/api/firebase_api.dart';
 import 'package:hobihub/group/domain/usecases/get_group_usecase.dart';
 import 'package:hobihub/group/presentation/cubits/group/group_cubit.dart';
 import 'package:hobihub/on_generate_route.dart';
@@ -22,6 +23,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await depedencyInjection.init();
+  await FirebaseApi().initializeNotifications();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((fn) async {
@@ -32,7 +34,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
