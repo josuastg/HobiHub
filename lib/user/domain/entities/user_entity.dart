@@ -6,6 +6,7 @@ class UserEntity extends Equatable {
   final String? uid;
   final String? password;
   final String? imgUrl;
+ 
   static String? token;
 
   const UserEntity(
