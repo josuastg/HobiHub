@@ -23,7 +23,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
           uid: uid,
           fullName: user.fullName,
           imgUrl: user.imgUrl,
-          token: UserEntity.token,
+          token: user.token,
         ).toDocument();
 
         userCollection.doc(uid).set(newUser);
@@ -102,8 +102,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       userInformation['email'] = user.email;
     }
 
-    if (UserEntity.token != null && UserEntity.token != "") {
-      userInformation['token'] = UserEntity.token;
+    if (user.token != null && user.token != "") {
+      userInformation['token'] = user.token;
     }
 
     await userCollection.doc(user.uid).update(userInformation);
