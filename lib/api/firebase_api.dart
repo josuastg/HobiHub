@@ -7,6 +7,12 @@ class FirebaseApi {
 
   Future<void> initializeNotifications() async {
     await firebaseMessaging.requestPermission();
+    await firebaseMessaging.getToken().then((token) {
+      if (token != null) {
+        UserEntity.token = token;
+        print('Token:$token');
+      }
+    });
   }
   
   Future<void> saveTokenUsers(String token, UserEntity users) async {

@@ -28,7 +28,7 @@ class UserModel extends UserEntity {
       "email": email,
       "uid": uid,
       "imgUrl": imgUrl,
-      "token": token
+      "token": UserEntity.token
     };
   }
 }
