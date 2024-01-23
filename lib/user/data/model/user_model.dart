@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hobihub/user/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
-  const UserModel({String? fullName, String? email, String? uid})
+  const UserModel({String? fullName, String? email, String? uid, String? imgUrl})
       : super(
           fullName: fullName,
           email: email,
           uid: uid,
+          imgUrl: imgUrl
         );
 
   factory UserModel.fromSnapshot(DocumentSnapshot snapshot) {
@@ -15,7 +16,8 @@ class UserModel extends UserEntity {
     return UserModel(
         fullName: snapshotMap['fullName'],
         uid: snapshotMap['uid'],
-        email: snapshotMap['email']);
+        email: snapshotMap['email'],
+        imgUrl: snapshotMap['imgUrl']);
   }
 
   Map<String, dynamic> toDocument() {
@@ -23,6 +25,7 @@ class UserModel extends UserEntity {
       "fullName": fullName,
       "email": email,
       "uid": uid,
+      "imgUrl": imgUrl
     };
   }
 }
