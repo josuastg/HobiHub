@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:bubble/bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,6 +25,8 @@ class ChatScreen extends StatefulWidget {
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
+
+GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
@@ -369,10 +370,15 @@ Future<void> sendNotificationToAllUsers(String title, String content) async {
       }
     }
   } catch (e) {
-    print('\nsendNotificationToAllUsersError: $e');
+    _showErrorSnackBar('Failed Send Notification to all users');
   }
 }
 
+void _showErrorSnackBar(String message) {
+  final snackBar = SnackBar(content: Text(message), duration: const Duration(seconds: 3),
+  );
+  _scaffoldMessengerKey.currentState?.showSnackBar(snackBar);
+}
 
 Future<void> sendPushNotification(
   String token, String title ,String content)async {
