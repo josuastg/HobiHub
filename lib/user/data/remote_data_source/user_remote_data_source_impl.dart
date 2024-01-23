@@ -22,7 +22,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
           email: user.email,
           uid: uid,
           fullName: user.fullName,
-          token: UserEntity.token
+          imgUrl: user.imgUrl,
+          token: UserEntity.token,
         ).toDocument();
 
         userCollection.doc(uid).set(newUser);
