@@ -9,7 +9,6 @@ class CredentialInitial extends CredentialState {
   List<Object> get props => [];
 }
 
-
 class CredentialLoading extends CredentialState {
   @override
   List<Object> get props => [];

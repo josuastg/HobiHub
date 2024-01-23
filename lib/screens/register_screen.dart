@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
@@ -5,9 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobihub/screens/home_screen.dart';
 import 'package:hobihub/screens/login_screen.dart';
+import 'package:hobihub/storage/domain/usecases/upload_profile_image_usecase.dart';
 import 'package:hobihub/user/domain/entities/user_entity.dart';
 import 'package:hobihub/user/presentation/cubit/auth/auth_cubit.dart';
 import 'package:hobihub/user/presentation/cubit/credential/credential_cubit.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:hobihub/injection_container.dart' as di;
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -23,6 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
+  File? _imageFile;
   bool _fullName = false;
   bool _passwordMatch = true;
   bool _passwordError = false;
@@ -37,7 +42,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         _emailError ||
         _passwordController.text.isEmpty ||
         _confirmPasswordController.text.isEmpty ||
-        _passwordController.text != _confirmPasswordController.text;
+        _passwordController.text != _confirmPasswordController.text ||
+        _imageFile == null ||
+        _imageFile!.path.isEmpty;
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -81,13 +88,91 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
+  void _showImagePickerOptions() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text('Choose from Gallery'),
+              onTap: () {
+                _pickImage(ImageSource.gallery);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_camera),
+              title: const Text('Take a Photo'),
+              onTap: () {
+                _pickImage(ImageSource.camera);
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedImage = await ImagePicker().pickImage(source: source);
+
+    if (pickedImage != null) {
+      setState(() {
+        _imageFile = File(pickedImage.path);
+      });
+    }
+  }
+
   void submitSignUp() {
-    BlocProvider.of<CredentialCubit>(context).signUpSubmit(
-        user: UserEntity(
-      fullName: _fullNameController.text,
-      email: _emailController.text,
-      password: _passwordController.text,
-    ));
+    if (_imageFile != null) {
+      di
+          .sl<UploadProfileImageUseCase>()
+          .call(file: _imageFile!)
+          .then((imageUrl) {
+        BlocProvider.of<CredentialCubit>(context)
+            .signUpSubmit(
+                user: UserEntity(
+                    fullName: _fullNameController.text,
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    imgUrl: imageUrl))
+            .then((value) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Register Profile Successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        });
+      });
+    }
+  }
+
+  Widget _buildProfileImage() {
+    return GestureDetector(
+      onTap: () {
+        _showImagePickerOptions();
+      },
+      child: CircleAvatar(
+        radius: 50,
+        backgroundColor: Colors.white,
+        backgroundImage: _imageFile != null && _imageFile!.path.isNotEmpty
+            ? FileImage(File(_imageFile!.path)) as ImageProvider<Object>
+            : null,
+        child: _imageFile == null ||
+                (_imageFile != null && _imageFile!.path.isEmpty)
+            ? SvgPicture.asset(
+                'assets/images/Vector.svg',
+                width: 100,
+                height: 100,
+              )
+            : null,
+      ),
+    );
   }
 
   @override
@@ -98,8 +183,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           if (credentialState is CredentialLoading) {
             return const Center(
               child: CircularProgressIndicator(
-                color: Color.fromARGB(255, 181, 93, 190)
-              ),
+                  color: Color.fromARGB(255, 181, 93, 190)),
             );
           }
 
@@ -124,7 +208,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             BlocProvider.of<AuthCubit>(context).loggedIn();
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Register and Logged in successfully!'),
+                content: Text('Logged in successfully!'),
                 backgroundColor: Colors.green,
               ),
             );
@@ -185,10 +269,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 29,
                     ),
-                    // SvgPicture.asset(
-                    //   "assets/images/Vector.svg",
-                    //   width: 88,
-                    // ),
+                    _buildProfileImage(),
                     const SizedBox(
                       height: 33,
                     ),
