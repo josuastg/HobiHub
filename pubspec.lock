@@ -96,19 +96,7 @@ packages:
       sha256: f092b211a4319e98e5ff58223576de6c2803db36221657b46c82574721240687
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
-    version: "1.18.0"
-  cross_file:
-    dependency: transitive
-    description:
-      name: cross_file
-      sha256: fedaadfa3a6996f75211d835aaeb8fede285dae94262485698afd832371b9a5e
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.3+8"
-=======
     version: "1.17.2"
->>>>>>> cd93a4053b64329847dc7b17693eaef19fe7b382
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -427,19 +415,7 @@ packages:
       sha256: "3c74dbf8763d36539f114c799d8a2d87343b5067e9d796ca22b5eb8437090ee3"
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
-    version: "1.11.0"
-  mime:
-    dependency: transitive
-    description:
-      name: mime
-      sha256: e4ff8e8564c03f255408decd16e7899da1733852a9110a58fe6d1b817684a63e
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.4"
-=======
     version: "1.9.1"
->>>>>>> cd93a4053b64329847dc7b17693eaef19fe7b382
   nested:
     dependency: transitive
     description:
@@ -598,10 +574,5 @@ packages:
     source: hosted
     version: "6.3.0"
 sdks:
-<<<<<<< HEAD
-  dart: ">=3.2.0 <4.0.0"
-  flutter: ">=3.10.0"
-=======
   dart: ">=3.1.2 <4.0.0"
   flutter: ">=3.7.0-0"
->>>>>>> cd93a4053b64329847dc7b17693eaef19fe7b382
