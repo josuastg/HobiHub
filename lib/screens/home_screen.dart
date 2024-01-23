@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hobihub/group/domain/entities/single_chat_entity.dart';
 import 'package:hobihub/group/presentation/cubits/group/group_cubit.dart';
+import 'package:hobihub/user/domain/entities/user_entity.dart';
+import 'package:hobihub/user/presentation/cubit/single_user/single_user_cubit.dart';
+import 'package:hobihub/user/presentation/cubit/user/user_cubit.dart';
 import 'package:hobihub/widgets/bottom_sheet_menu.dart';
 import 'package:hobihub/widgets/hobby_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,6 +25,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<UserCubit>(context)
+        .getUsers(user: UserEntity(uid: widget.uid));
     _groupCubit = context.read<GroupCubit>();
     _groupCubit.getGroups();
   }

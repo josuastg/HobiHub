@@ -10,6 +10,8 @@ import 'package:hobihub/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hobihub/user/presentation/cubit/auth/auth_cubit.dart';
 import 'package:hobihub/user/presentation/cubit/credential/credential_cubit.dart';
+import 'package:hobihub/user/presentation/cubit/single_user/single_user_cubit.dart';
+import 'package:hobihub/user/presentation/cubit/user/user_cubit.dart';
 import 'firebase_options.dart';
 import 'group/presentation/cubits/chat/chat_cubit.dart';
 import 'injection_container.dart' as depedencyInjection;
@@ -39,6 +41,10 @@ class MyApp extends StatelessWidget {
             create: (_) => depedencyInjection.sl<AuthCubit>()..appStarted()),
         BlocProvider<CredentialCubit>(
             create: (_) => depedencyInjection.sl<CredentialCubit>()),
+        BlocProvider<SingleUserCubit>(
+            create: (_) => depedencyInjection.sl<SingleUserCubit>()),
+        BlocProvider<UserCubit>(
+            create: (_) => depedencyInjection.sl<UserCubit>()),
         BlocProvider<GroupCubit>(
             create: (context) => GroupCubit(
                 getGroupsUseCase: depedencyInjection.sl<GetGroupsUseCase>())),
