@@ -20,9 +20,9 @@ class FirebaseApi {
     try {
       String userUid = users.uid!;
 
-      await FirebaseFirestore.instance.collection('users').doc(userUid).update({
+      await FirebaseFirestore.instance.collection('users').doc(userUid).set({
         'token': token,
-      });
+      }, SetOptions(merge: true));
 
       print('Token berhasil disimpan di firebase');
     } catch (e) {

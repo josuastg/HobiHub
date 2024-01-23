@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:bubble/bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,9 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hobihub/group/domain/entities/single_chat_entity.dart';
 import 'package:hobihub/group/domain/entities/text_message_entity.dart';
 import 'package:hobihub/screens/home_screen.dart';
-import 'package:hobihub/user/domain/entities/user_entity.dart';
 import '../group/presentation/cubits/chat/chat_cubit.dart';
 import 'package:http/http.dart' as http;
+import 'package:hobihub/global/firebase_fcm.dart';
 
 import 'package:intl/intl.dart';
 
@@ -363,6 +364,8 @@ Future<void> sendNotificationToAllUsers(String title, String content) async {
         }
       } else {
         print('Token field does not exist in the users document');
+        print('User Document ID: ${userDoc.id}');
+        print('User Document Data: ${userDoc.data()}');
       }
     }
   } catch (e) {
@@ -373,7 +376,6 @@ Future<void> sendNotificationToAllUsers(String title, String content) async {
 
 Future<void> sendPushNotification(
   String token, String title ,String content)async {
-    print(UserEntity.token);
   try {
     final body = {
       "to": token,
@@ -384,11 +386,10 @@ Future<void> sendPushNotification(
     };
 
     var response =
-        await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        await http.post(Uri.parse(FirebaseFcm.urlFcm),
             headers: {
               HttpHeaders.contentTypeHeader: 'application/json',
-              HttpHeaders.authorizationHeader:
-                  'key= AAAADoPKEH4:APA91bEO2VJ9wlN0Gw1pCMaJ_NRBtQC31MlDKXORcaO0yMHF98Xbmj_htHSHf6FM2SoW5p4nAIBrSXieQmWBjaTTKm6ml-OTTgoQHE6yTanUgMbxxRrNdfjSXfsbAyelnQBnmKpP_DnZ'
+              HttpHeaders.authorizationHeader: 'key= ${FirebaseFcm.key}'
             },
             body: jsonEncode(body));
     print('Response status: ${response.statusCode}');
