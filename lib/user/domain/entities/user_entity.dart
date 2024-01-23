@@ -9,7 +9,7 @@ class UserEntity extends Equatable {
   static String? token;
 
   const UserEntity(
-      {this.fullName, this.email, this.uid, this.password, this.imgUrl, this.token});
+      {this.fullName, this.email, this.uid, this.password, this.imgUrl, token});
 
   @override
   List<Object?> get props => [fullName, email, uid, password, imgUrl, token];
